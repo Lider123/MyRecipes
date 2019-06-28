@@ -1,36 +1,48 @@
 import React, {Component} from "react"
-import {FlatList, Image, Text, StyleSheet, ToolbarAndroid, View} from "react-native"
+import {FlatList, Image, Text, StyleSheet, TouchableOpacity, View} from "react-native"
 import getRecipes from "../helpers/RecipesHelper";
 
 export default class RecipeListScreen extends Component {
+  static navigationOptions = {
+    title: 'Recipes',
+    headerStyle: {
+      backgroundColor: '#590e0a',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   state = {
     recipes: getRecipes()
   };
 
   _keyExtractor = item => item.id;
 
+  _onItemPress = () => {
+    this.props.navigation.navigate("Recipe");
+  };
+
   _renderItem = ({item, index}) => {
     let ingredients = item.ingredients.map(i => i.name).join(", ");
     return (
-      <View style={[styles.item, index === 0 ? {marginTop: 8} : {}]}>
+      <TouchableOpacity
+        style={[styles.item, index === 0 ? {marginTop: 8} : {}]}
+        onPress={this._onItemPress}>
         <Text style={styles.title}>{item.title}</Text>
         <Image
           style={styles.photo}
           source={{uri: item.photo}}/>
         <Text style={styles.text}>Ingredients: {ingredients}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   render() {
     return (
       <View style={styles.container}>
-        <ToolbarAndroid
-          titleColor="#FFF"
-          title="MyRecipes"
-          style={styles.toolbar}/>
         <FlatList
-          style={styles.list}
           data={this.state.recipes}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}/>
@@ -40,20 +52,12 @@ export default class RecipeListScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  toolbar: {
-    backgroundColor: "#590e0a",
-    height: 56,
-    alignSelf: "stretch",
-    textAlign: "center",
-  },
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "stretch",
     backgroundColor: "#CCC",
-  },
-  list: {
     paddingLeft: 8,
     paddingRight: 8,
   },
