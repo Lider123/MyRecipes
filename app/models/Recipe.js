@@ -3,6 +3,7 @@ export default class Recipe {
     this._id = "";
     this._title = "";
     this._ingredients = [];
+    this._photo = "";
     this._text = ""
   }
 
@@ -28,6 +29,14 @@ export default class Recipe {
 
   set ingredients(value) {
     this._ingredients = value;
+  }
+
+  get photo() {
+    return this._photo;
+  }
+
+  set photo(value) {
+    this._photo = value;
   }
 
   get text() {
