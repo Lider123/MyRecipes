@@ -8,19 +8,9 @@ import {
 } from "react-native"
 
 import Ingredient from "../models/Ingredient";
+import {Colors} from "../config";
 
 export default class RecipeScreen extends Component {
-  static navigationOptions = {
-    title: 'Recipe',
-    headerStyle: {
-      backgroundColor: '#590e0a',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-
   render() {
     const { recipe } = this.props.navigation.state.params;
     return (
@@ -63,7 +53,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch",
-    backgroundColor: "#CCC"
+    backgroundColor: Colors.colorBackground,
   },
   photo: {
     width: 200,
