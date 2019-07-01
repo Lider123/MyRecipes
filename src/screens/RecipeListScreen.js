@@ -3,19 +3,9 @@ import {FlatList, Image, Text, StyleSheet, TouchableOpacity, View} from "react-n
 
 import getRecipes from "../helpers/RecipesHelper";
 import FloatingActionButton from "../components/FloatingActionButton";
+import {Colors} from "../config";
 
 export default class RecipeListScreen extends Component {
-  static navigationOptions = {
-    title: 'Recipes',
-    headerStyle: {
-      backgroundColor: '#590e0a',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  };
-
   state = {
     recipes: getRecipes()
   };
@@ -55,8 +45,8 @@ export default class RecipeListScreen extends Component {
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}/>
         <FloatingActionButton
-          color="#e0b36c"
-          tintColor="#FFF"
+          color={Colors.colorAccent}
+          tintColor={Colors.colorOnAccent}
           onPress={this._onFloatingButtonPress}/>
       </View>
     );
@@ -69,7 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "stretch",
-    backgroundColor: "#CCC",
+    backgroundColor: Colors.colorBackground,
     paddingLeft: 8,
     paddingRight: 8,
   },
@@ -77,7 +67,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 30,
-    backgroundColor: "#FFF",
+    backgroundColor: Colors.colorSurface,
     padding: 8,
     marginBottom: 8,
   },
