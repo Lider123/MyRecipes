@@ -6,6 +6,7 @@ import {
   Text,
   View
 } from "react-native"
+
 import Ingredient from "../models/Ingredient";
 
 export default class RecipeScreen extends Component {

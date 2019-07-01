@@ -1,6 +1,8 @@
 import React, {Component} from "react"
 import {FlatList, Image, Text, StyleSheet, TouchableOpacity, View} from "react-native"
+
 import getRecipes from "../helpers/RecipesHelper";
+import FloatingActionButton from "../components/FloatingActionButton";
 
 export default class RecipeListScreen extends Component {
   static navigationOptions = {
@@ -22,6 +24,10 @@ export default class RecipeListScreen extends Component {
 
   _onItemPress = item => {
     this.props.navigation.navigate("Recipe", { recipe: item });
+  };
+
+  _onFloatingButtonPress = () => {
+    this.props.navigation.navigate("CreateRecipe");
   };
 
   _renderItem = ({ item, index }) => {
@@ -48,6 +54,10 @@ export default class RecipeListScreen extends Component {
           data={this.state.recipes}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}/>
+        <FloatingActionButton
+          color="#e0b36c"
+          tintColor="#FFF"
+          onPress={this._onFloatingButtonPress}/>
       </View>
     );
   }
