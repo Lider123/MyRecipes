@@ -32,7 +32,7 @@ export default function getRecipes() {
   recipe.ingredients = [
     new Ingredient("eggs", "2 pieces")
   ];
-  recipe.photo = "https://loremflickr.com/320/240/food";
+  recipe.photo = "";
   recipe.text = "Dip the eggs in a pan with cold water, put on a high heat, let the water boil. After that, reduce the heat and cook for 5 minutes.";
   recipes.push(recipe);
 

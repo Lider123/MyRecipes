@@ -8,7 +8,9 @@ const AppNavigator = createStackNavigator({
   },
   Recipe: {
     screen: RecipeScreen,
-  }
+  },
+}, {
+  initialRouteName: "RecipeList",
 });
 
 export default createAppContainer(AppNavigator);

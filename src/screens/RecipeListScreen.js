@@ -20,21 +20,23 @@ export default class RecipeListScreen extends Component {
 
   _keyExtractor = item => item.id;
 
-  _onItemPress = () => {
-    this.props.navigation.navigate("Recipe");
+  _onItemPress = item => {
+    this.props.navigation.navigate("Recipe", { recipe: item });
   };
 
-  _renderItem = ({item, index}) => {
+  _renderItem = ({ item, index }) => {
     let ingredients = item.ingredients.map(i => i.name).join(", ");
     return (
       <TouchableOpacity
-        style={[styles.item, index === 0 ? {marginTop: 8} : {}]}
-        onPress={this._onItemPress}>
+        style={[styles.item, index === 0 ? { marginTop: 8 } : {}]}
+        onPress={() => this._onItemPress(item)}>
         <Text style={styles.title}>{item.title}</Text>
-        <Image
-          style={styles.photo}
-          source={{uri: item.photo}}/>
-        <Text style={styles.text}>Ingredients: {ingredients}</Text>
+        { item.photo !== "" &&
+          <Image
+            style={styles.photo}
+            source={{uri: item.photo}}/>
+        }
+        <Text style={styles.text}>Ingredients: { ingredients }</Text>
       </TouchableOpacity>
     );
   };
