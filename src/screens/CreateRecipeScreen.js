@@ -1,12 +1,127 @@
 import React, {Component} from "react";
-import { View } from "react-native";
+import {
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  View,
+} from "react-native";
+
+import LabeledEditText from "../components/LabeledEditText";
+import Ingredient from "../models/Ingredient";
+import Recipe from "../models/Recipe";
+import {Colors} from "../config";
+import CustomButton from "../components/CustomButton";
+import IngredientEditor from "../components/IngredientEditor";
 
 export default class CreateRecipeScreen extends Component {
+  array = [];
+
+  state = {
+    title: "",
+    ingredients: [],
+    description: "",
+  };
+
+  _keyExtractor = (item, key) => item.id;
+
+  _setTitle = text => {
+    this.setState({ title: text });
+  };
+
+  _setDescription = text => {
+    this.setState({ description: text });
+  };
+
+  _addIngredient = () => {
+    this.array.push(new Ingredient("", ""));
+    this.setState({ ingredients: [...this.array] });
+  };
+
+  _removeIngredient = id => {
+    this.array = this.array.filter(value => value.id !== id);
+    this.setState({ ingredients: [...this.array] });
+  };
+
+  _setIngredientName = ({ id, text }) => {
+    this.array.find(value => value.id === id)._name = text;
+    this.setState({ ingredients: [...this.array] });
+  };
+
+  _setIngredientCount = ({ id, text }) => {
+    this.array.find(value => value.id === id)._count = text;
+    this.setState({ ingredients: [...this.array] });
+  };
+
+  _onSave = () => {
+    const { title, ingredients, description } = this.state;
+    const recipe = new Recipe();
+    recipe.title = title;
+    recipe.ingredients = ingredients;
+    recipe.text = description;
+    this.props.navigation.state.params.onSave(recipe);
+    this.props.navigation.goBack();
+  };
+
+  _renderItem = ({item}) => {
+    const id = item.id;
+    return <IngredientEditor
+      ingredient={item}
+      onChangeName={ (text) => this._setIngredientName({ id, text }) }
+      onChangeCount={ (text) => this._setIngredientCount({ id, text }) }
+      onClosePress={ () => this._removeIngredient(id) }
+    />
+  };
+
   render() {
     return (
-      <View>
+      <ScrollView contentContainerStyle={styles.container}>
 
-      </View>
+        <LabeledEditText
+          label="Title"
+          onChangeText={this._setTitle}/>
+
+        <View style={styles.ingredientsContainer}>
+          <CustomButton
+            text="Add ingredient"
+            color={Colors.colorAccent}
+            textColor={Colors.colorOnAccent}
+            onPress={this._addIngredient}/>
+          <FlatList
+            data={this.state.ingredients}
+            extraData={this.state.ingredients}
+            keyExtractor={this._keyExtractor}
+            renderItem={this._renderItem}/>
+        </View>
+
+        <LabeledEditText
+          label="Description"
+          multiline={true}
+          onChangeText={this._setDescription}/>
+
+        <CustomButton
+          text="Save"
+          color={Colors.colorAccent}
+          textColor={Colors.colorOnAccent}
+          onPress={this._onSave}
+          style={{ marginTop: 16 }}/>
+
+      </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 8,
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+  },
+  ingredientsContainer: {
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+    marginTop: 16,
+  },
+});

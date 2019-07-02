@@ -7,16 +7,14 @@ import {
   View
 } from "react-native"
 
-import Ingredient from "../models/Ingredient";
 import {Colors} from "../config";
 
 export default class RecipeScreen extends Component {
   render() {
-    const { recipe } = this.props.navigation.state.params;
+    const {recipe} = this.props.navigation.state.params;
     return (
       <View style={styles.container}>
-        <Text style={[styles.title, styles.header]}>{ recipe.title }</Text>
-
+        <Text style={[styles.title, { textAlign: "center" }]}>{recipe.title}</Text>
         <ScrollView>
 
           { recipe.photo !== "" &&
@@ -26,14 +24,16 @@ export default class RecipeScreen extends Component {
             }}>
               <Image
                 style={styles.photo}
-                source={{uri: recipe.photo}}/>
+                source={{ uri: recipe.photo }}/>
             </View>
           }
 
           <Text style={styles.title}>Ingredients:</Text>
           {
-            recipe.ingredients.map((item: Ingredient, key) => (
-              <Text style={styles.text}>&#183; { item.name }, { item.count }</Text>
+            recipe.ingredients.map((item, key) => (
+              <Text
+                style={styles.text}
+                key={key}>&#183; { item.name }, { item.count }</Text>
             ))
           }
 
@@ -41,7 +41,6 @@ export default class RecipeScreen extends Component {
           <Text style={styles.text}>{ recipe.text }</Text>
 
         </ScrollView>
-
       </View>
     );
   }
@@ -66,9 +65,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 8,
     paddingTop: 16,
-  },
-  header: {
-    textAlign: "center",
   },
   text: {
     fontSize: 14,
