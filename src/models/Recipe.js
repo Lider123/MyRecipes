@@ -1,6 +1,6 @@
 export default class Recipe {
   constructor() {
-    this._id = "";
+    this._id = "" + Math.floor(1e8 * Math.random());
     this._title = "";
     this._ingredients = [];
     this._photo = "";

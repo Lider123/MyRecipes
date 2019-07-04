@@ -1,7 +1,16 @@
 export default class Ingredient {
   constructor(name, count) {
+    this._id = "" + Math.floor(1e8 * Math.random());
     this._name = name;
     this._count = count;
+  }
+
+  get id() {
+    return this._id;
+  }
+
+  set id(value) {
+    this._id = value;
   }
 
   get name() {

@@ -21,7 +21,7 @@ FloatingActionButton.defaultProps = {
   onPress: () => {},
 };
 
-export default function FloatingActionButton({color, tintColor, onPress, size}) {
+export default function FloatingActionButton({ color, tintColor, onPress, size }) {
   const buttonStyle = {
     width: size,
     height: size,
