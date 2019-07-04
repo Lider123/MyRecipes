@@ -1,19 +1,26 @@
 import React, {Component} from "react"
-import {
-  FlatList,
-  StyleSheet,
-  View
-} from "react-native"
-
-import getRecipes from "../helpers/RecipesHelper";
+import {FlatList, StyleSheet, View} from "react-native"
 import FloatingActionButton from "../components/FloatingActionButton";
 import {Colors} from "../config";
 import RecipeCard from "../components/RecipeCard";
+import Api from "../network/Api";
+import * as Parsers from "../network/Parsers";
 
 export default class RecipeListScreen extends Component {
   state = {
-    recipes: getRecipes()
+    recipes: [],
   };
+
+  componentDidMount() {
+    Api.getRecipes()
+      .then((responseJson) => {
+        const recipes = Parsers.parseRecipes(responseJson);
+        this.setState({ recipes });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
 
   _keyExtractor = (item, key) => item.id;
 
