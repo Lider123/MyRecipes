@@ -18,7 +18,10 @@ export default class RecipeListScreen extends Component {
   _keyExtractor = (item, key) => item.id;
 
   _onItemPress = item => {
-    this.props.navigation.navigate("Recipe", { recipe: item });
+    this.props.navigation.navigate("Recipe", {
+      recipe: item,
+      onDeleteRecipe: this._handleDeleteRecipe
+    });
   };
 
   _onFloatingButtonPress = () => {
@@ -28,6 +31,12 @@ export default class RecipeListScreen extends Component {
   _handleCreateRecipe = recipe => {
     const {recipes} = this.state;
     recipes.push(recipe);
+  };
+
+  _handleDeleteRecipe = id => {
+    const {recipes} = this.state;
+    const filtered = recipes.filter((value) => value.id !== id);
+    this.setState({ recipes: filtered });
   };
 
   _renderItem = ({ item, index }) => {
