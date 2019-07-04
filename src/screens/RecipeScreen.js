@@ -8,8 +8,29 @@ import {
 } from "react-native"
 
 import {Colors} from "../config";
+import HeaderIcon from "../components/HeaderIcon";
 
 export default class RecipeScreen extends Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <HeaderIcon
+          name="delete"
+          onPress={navigation.getParam("deleteRecipe")}/>
+      ),
+    };
+  };
+
+  componentDidMount() {
+    this.props.navigation.setParams({ deleteRecipe: this._deleteRecipe });
+  }
+
+  _deleteRecipe = () => {
+    const {recipe, onDeleteRecipe} = this.props.navigation.state.params;
+    onDeleteRecipe(recipe.id);
+    this.props.navigation.goBack();
+  };
+
   render() {
     const {recipe} = this.props.navigation.state.params;
     return (
