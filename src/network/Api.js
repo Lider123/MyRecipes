@@ -5,7 +5,7 @@ export default class Api {
 
   static getRecipes() {
     return fetch(Api.BASE_API + "/recipes")
-      .then((response) => response.json())
+      .then((response) => response.json());
   }
 
   static putRecipe(recipe) {
@@ -17,5 +17,12 @@ export default class Api {
         'Content-Type': 'application/json'
       }
     });
+  }
+
+  static deleteRecipe(id) {
+    return fetch(Api.BASE_API + "/recipes/" + id, {
+      method: "DELETE",
+    })
+      .then((response) => response.json());
   }
 }
