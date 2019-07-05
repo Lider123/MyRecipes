@@ -3,7 +3,7 @@ export default class Recipe {
     this._id = "" + Math.floor(1e8 * Math.random());
     this._title = "";
     this._ingredients = [];
-    this._photo = "";
+    this._photos = [];
     this._text = ""
   }
 
@@ -31,12 +31,12 @@ export default class Recipe {
     this._ingredients = value;
   }
 
-  get photo() {
-    return this._photo;
+  get photos() {
+    return this._photos;
   }
 
-  set photo(value) {
-    this._photo = value;
+  set photos(value) {
+    this._photos = value;
   }
 
   get text() {

@@ -1,6 +1,8 @@
 import Recipe from "../models/Recipe";
 import Ingredient from "../models/Ingredient";
 
+//TODO: change parsers to handle array of photos instead of single
+
 export const parseRecipes = function(json) {
   const recipes = [];
   for (let i = 0; i < json.documents.length; i++) {

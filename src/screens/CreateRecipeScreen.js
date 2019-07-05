@@ -12,10 +12,25 @@ import Recipe from "../models/Recipe";
 import {Colors} from "../config";
 import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
+import PhotoList from "../components/PhotoList";
+import ImagePicker from "react-native-image-picker";
+
+const imagePickerOptions = {
+  title: 'Select photo',
+  cancelButtonTitle: 'Cancel',
+  takePhotoButtonTitle: 'Take Photo...',
+  chooseFromLibraryButtonTitle: 'Choose from Library...',
+  mediaType: 'photo',
+  maxWidth: 500,
+  maxHeight: 500,
+  quality: 0.9,
+  allowsEditing: true,
+};
 
 export default class CreateRecipeScreen extends Component {
   state = {
     title: "",
+    photos: [],
     ingredients: [],
     description: "",
   };
@@ -28,6 +43,17 @@ export default class CreateRecipeScreen extends Component {
 
   _setDescription = text => {
     this.setState({ description: text });
+  };
+
+  _addPhoto = () => {
+    ImagePicker.showImagePicker(imagePickerOptions, (response) => {
+      if (response.error)
+        console.log('ImagePicker Error: ', response.error);
+      else {
+        const {photos} = this.state;
+        this.setState({ photos: [...photos, response.data] });
+      }
+    });
   };
 
   _addIngredient = () => {
@@ -54,9 +80,10 @@ export default class CreateRecipeScreen extends Component {
   };
 
   _onSave = () => {
-    const { title, ingredients, description } = this.state;
+    const { title, photos, ingredients, description } = this.state;
     const recipe = new Recipe();
     recipe.title = title;
+    recipe.photos = photos;
     recipe.ingredients = ingredients;
     recipe.text = description;
     this.props.navigation.state.params.onSave(recipe);
@@ -80,6 +107,12 @@ export default class CreateRecipeScreen extends Component {
         <LabeledEditText
           label="Title"
           onChangeText={this._setTitle}/>
+
+        <PhotoList
+          photos={this.state.photos}
+          style={{ marginTop: 16 }}
+          hasAddButton={true}
+          onAddPress={this._addPhoto}/>
 
         <View style={styles.ingredientsContainer}>
           <CustomButton
