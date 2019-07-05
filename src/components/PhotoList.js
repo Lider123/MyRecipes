@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 export default class PhotoList extends Component {
   static propTypes = {
-    photos: PropTypes.array,
+    photos: PropTypes.arrayOf(PropTypes.string),
     style: ViewPropTypes.style,
     hasAddButton: PropTypes.bool,
     onAddPress: PropTypes.func,
@@ -19,8 +19,7 @@ export default class PhotoList extends Component {
   static defaultProps = {
     photos: [],
     style: {},
-    hasAddButton: false,
-    onAddPress: () => {},
+    onAddPress: null,
   };
 
   _renderPhoto = function(photo, i) {
@@ -35,7 +34,7 @@ export default class PhotoList extends Component {
       <ScrollView
         contentContainerStyle={[styles.container, this.props.style]}
         horizontal={true}>
-        { this.props.hasAddButton &&
+        { this.props.onAddPress &&
           <TouchableOpacity onPress={this.props.onAddPress}>
             <Image
               style={styles.photo}

@@ -49,6 +49,8 @@ export default class CreateRecipeScreen extends Component {
 
   _addPhoto = () => {
     ImagePicker.showImagePicker(imagePickerOptions, (response) => {
+      if (response.didCancel)
+        return;
       if (response.error)
         console.log('ImagePicker Error: ', response.error);
       else {
@@ -136,7 +138,6 @@ export default class CreateRecipeScreen extends Component {
         <PhotoList
           photos={this.state.photos}
           style={{ marginTop: 16 }}
-          hasAddButton={true}
           onAddPress={this._addPhoto}/>
 
         <View style={styles.ingredientsContainer}>

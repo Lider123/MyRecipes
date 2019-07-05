@@ -20,6 +20,7 @@ IngredientEditor.propTypes = {
 Ingredient.defaultProps = {
   onChangeName: () => {},
   onChangeCount: () => {},
+  onClosePress: null,
 };
 
 export default function IngredientEditor({ ingredient, onChangeName, onChangeCount, onClosePress }) {

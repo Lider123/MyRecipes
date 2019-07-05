@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 FloatingActionButton.propTypes = {
+  icon: PropTypes.string.isRequired,
   color: ColorPropType,
   tintColor: ColorPropType,
   onPress: PropTypes.func,
@@ -21,7 +22,7 @@ FloatingActionButton.defaultProps = {
   onPress: () => {},
 };
 
-export default function FloatingActionButton({ color, tintColor, onPress, size }) {
+export default function FloatingActionButton({ icon, color, tintColor, onPress, size }) {
   const buttonStyle = {
     width: size,
     height: size,
@@ -33,7 +34,7 @@ export default function FloatingActionButton({ color, tintColor, onPress, size }
       style={[styles.container, buttonStyle]}
       onPress={onPress}>
       <Icon
-        name="add"
+        name={icon}
         color={tintColor}
         size={ 0.8 * size }/>
     </TouchableOpacity>
