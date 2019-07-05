@@ -17,7 +17,7 @@ import PhotoList from "../components/PhotoList";
 export default class CreateRecipeScreen extends Component {
   state = {
     title: "",
-    photos: [],
+    photos: ["https://loremflickr.com/320/240/food","https://loremflickr.com/320/240/food","https://loremflickr.com/320/240/food","https://loremflickr.com/320/240/food"],
     ingredients: [],
     description: "",
   };
@@ -83,7 +83,9 @@ export default class CreateRecipeScreen extends Component {
           label="Title"
           onChangeText={this._setTitle}/>
 
-        <PhotoList photos={this.state.photos}/>
+        <PhotoList
+          photos={this.state.photos}
+          style={{ marginTop: 16 }}/>
 
         <View style={styles.ingredientsContainer}>
           <CustomButton
@@ -126,6 +128,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch",
-    marginTop: 8,
+    marginTop: 16,
   },
 });

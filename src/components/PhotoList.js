@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {
-  FlatList,
   Image,
   ScrollView,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import PropTypes from "prop-types";
 
@@ -18,24 +17,21 @@ export default class PhotoList extends Component {
     style: {},
   };
 
-  _renderItem = ({ item, index }) => {
+  _renderPhoto = photo => {
     return <Image
       style={styles.photo}
-      source={{uri: item}}/>
+      source={{uri: photo}}/>
   };
 
   render() {
     return (
-      <ScrollView contentContainerStyle={[styles.container, this.props.style]}>
-        { this.props.photo &&
-          <FlatList
-            data={this.props.photos}
-            extraData={this.props.photos}
-            renderItem={this._renderItem}/>
-        }
+      <ScrollView
+        contentContainerStyle={[styles.container, this.props.style]}
+        horizontal={true}>
         <Image
           style={styles.photo}
           source={require("../../img/add-photo.png")}/>
+        { this.props.photos.map(item => this._renderPhoto(item)) }
       </ScrollView>
     );
   }
