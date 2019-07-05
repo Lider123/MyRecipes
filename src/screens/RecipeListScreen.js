@@ -5,7 +5,6 @@ import {Colors} from "../config";
 import RecipeCard from "../components/RecipeCard";
 import Api from "../network/Api";
 import * as Parsers from "../network/Deserializers";
-import getRecipes from "../helpers/RecipesHelper";
 
 export default class RecipeListScreen extends Component {
   state = {

@@ -10,6 +10,7 @@ import {
 import {Colors} from "../config";
 import HeaderIcon from "../components/HeaderIcon";
 import PhotoList from "../components/PhotoList";
+import Api from "../network/Api";
 
 export default class RecipeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,6 +31,11 @@ export default class RecipeScreen extends Component {
     const {recipe, onDeleteRecipe} = this.props.navigation.state.params;
     onDeleteRecipe(recipe.id);
     this.props.navigation.goBack();
+    Api.deleteRecipe(recipe.id)
+      .then(res => {
+        console.log("Recipe " + recipe.id + " been deleted");
+      })
+      .catch(err => err);
   };
 
   render() {
