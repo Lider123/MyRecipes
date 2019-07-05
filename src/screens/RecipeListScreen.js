@@ -13,15 +13,15 @@ export default class RecipeListScreen extends Component {
   };
 
   componentDidMount() {
-    /*Api.getRecipes()
+    Api.getRecipes()
       .then((responseJson) => {
         const recipes = Parsers.parseRecipes(responseJson);
         this.setState({ recipes });
       })
       .catch((error) => {
         console.error(error);
-      });*/
-    this.setState({ recipes: getRecipes() })
+      });
+    //this.setState({ recipes: getRecipes() })
   }
 
   _keyExtractor = (item, key) => item.id;
