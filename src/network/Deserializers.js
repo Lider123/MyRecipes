@@ -1,38 +1,37 @@
 import Recipe from "../models/Recipe";
 import Ingredient from "../models/Ingredient";
 
-//TODO: change parsers to handle array of photos instead of single
-
-export const parseRecipes = function(json) {
+export const deserializeRecipes = function(json) {
   const recipes = [];
   for (let i = 0; i < json.documents.length; i++) {
-    const recipe = parseRecipe(json.documents[i]);
+    const recipe = deserializeRecipe(json.documents[i]);
     recipes.push(recipe)
   }
   return recipes;
 };
 
-export const parseRecipe = function(json) {
+export const deserializeRecipe = function(json) {
   const recipe = new Recipe();
   recipe.id = getName(json.name);
   recipe.title = json.fields.title.stringValue;
   recipe.photos = getPhotos(json.fields.photos.arrayValue.values);
   recipe.text = json.fields.text.stringValue;
-  recipe.ingredients = parseIngredients(json.fields.ingredients.arrayValue.values);
+  recipe.ingredients = deserializeIngredients(json.fields.ingredients.arrayValue.values);
   return recipe;
 };
 
-export const parseIngredients = function(json) {
+export const deserializeIngredients = function(json) {
   const ingredients = [];
   for (let i = 0; i < json.length; i++) {
-    const ingredient = parseIngredient(json[i]);
+    const ingredient = deserializeIngredient(json[i]);
     ingredients.push(ingredient);
   }
   return ingredients;
 };
 
-export const parseIngredient = function(json) {
+export const deserializeIngredient = function(json) {
   const ingredient = new Ingredient();
+  ingredient.id = json.mapValue.fields.id.stringValue;
   ingredient.name = json.mapValue.fields.name.stringValue;
   ingredient.count = json.mapValue.fields.count.stringValue;
   return ingredient;

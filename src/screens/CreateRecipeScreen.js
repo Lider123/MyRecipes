@@ -14,6 +14,7 @@ import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
 import PhotoList from "../components/PhotoList";
 import ImagePicker from "react-native-image-picker";
+import Api from "../network/Api";
 
 const imagePickerOptions = {
   title: 'Select photo',
@@ -88,6 +89,11 @@ export default class CreateRecipeScreen extends Component {
     recipe.text = description;
     this.props.navigation.state.params.onSave(recipe);
     this.props.navigation.goBack();
+    Api.putRecipe(recipe)
+      .then(res => {
+        console.log("Recipe has been created");
+      })
+      .catch(err => err);
   };
 
   _renderItem = ({item}) => {
