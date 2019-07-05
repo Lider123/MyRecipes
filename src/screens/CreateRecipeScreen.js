@@ -3,6 +3,7 @@ import {
   FlatList,
   ScrollView,
   StyleSheet,
+  ToastAndroid,
   View,
 } from "react-native";
 
@@ -80,7 +81,25 @@ export default class CreateRecipeScreen extends Component {
     this.setState({ ingredients: [...ingredients] });
   };
 
+  _inputIsValid() {
+    if (this.state.title.length < 1) {
+      ToastAndroid.show("Set the title", ToastAndroid.SHORT, ToastAndroid.CENTER);
+      return false;
+    }
+    if (this.state.ingredients.some(item => item.name.length < 1 || item.count.length < 1)) {
+      ToastAndroid.show("Set ingredients fields", ToastAndroid.SHORT, ToastAndroid.CENTER);
+      return false;
+    }
+    if (this.state.description.length < 1) {
+      ToastAndroid.show("Set the description", ToastAndroid.SHORT, ToastAndroid.CENTER);
+      return false;
+    }
+    return true;
+  }
+
   _onSave = () => {
+    if (!this._inputIsValid())
+      return;
     const { title, photos, ingredients, description } = this.state;
     const recipe = new Recipe();
     recipe.title = title;
