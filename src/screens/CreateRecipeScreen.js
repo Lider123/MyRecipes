@@ -14,8 +14,6 @@ import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
 
 export default class CreateRecipeScreen extends Component {
-  array = [];
-
   state = {
     title: "",
     ingredients: [],
@@ -33,23 +31,26 @@ export default class CreateRecipeScreen extends Component {
   };
 
   _addIngredient = () => {
-    this.array.push(new Ingredient("", ""));
-    this.setState({ ingredients: [...this.array] });
+    const {ingredients} = this.state;
+    this.setState({ ingredients: [...ingredients, new Ingredient("", "")] });
   };
 
   _removeIngredient = id => {
-    this.array = this.array.filter(value => value.id !== id);
-    this.setState({ ingredients: [...this.array] });
+    const {ingredients} = this.state;
+    const filtered = ingredients.filter(value => value.id !== id);
+    this.setState({ ingredients: [...filtered] });
   };
 
   _setIngredientName = ({ id, text }) => {
-    this.array.find(value => value.id === id)._name = text;
-    this.setState({ ingredients: [...this.array] });
+    const {ingredients} = this.state;
+    ingredients.find(value => value.id === id)._name = text;
+    this.setState({ ingredients: [...ingredients] });
   };
 
   _setIngredientCount = ({ id, text }) => {
-    this.array.find(value => value.id === id)._count = text;
-    this.setState({ ingredients: [...this.array] });
+    const {ingredients} = this.state;
+    ingredients.find(value => value.id === id)._count = text;
+    this.setState({ ingredients: [...ingredients] });
   };
 
   _onSave = () => {
