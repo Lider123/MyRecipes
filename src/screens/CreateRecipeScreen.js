@@ -12,10 +12,12 @@ import Recipe from "../models/Recipe";
 import {Colors} from "../config";
 import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
+import PhotoList from "../components/PhotoList";
 
 export default class CreateRecipeScreen extends Component {
   state = {
     title: "",
+    photos: [],
     ingredients: [],
     description: "",
   };
@@ -81,6 +83,8 @@ export default class CreateRecipeScreen extends Component {
           label="Title"
           onChangeText={this._setTitle}/>
 
+        <PhotoList photos={this.state.photos}/>
+
         <View style={styles.ingredientsContainer}>
           <CustomButton
             text="Add ingredient"
@@ -122,6 +126,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch",
-    marginTop: 16,
+    marginTop: 8,
   },
 });
