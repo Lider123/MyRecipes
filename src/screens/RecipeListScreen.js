@@ -4,7 +4,7 @@ import FloatingActionButton from "../components/FloatingActionButton";
 import {Colors} from "../config";
 import RecipeCard from "../components/RecipeCard";
 import Api from "../network/Api";
-import * as Parsers from "../network/Parsers";
+import * as Parsers from "../network/Deserializers";
 import getRecipes from "../helpers/RecipesHelper";
 
 export default class RecipeListScreen extends Component {
@@ -15,13 +15,12 @@ export default class RecipeListScreen extends Component {
   componentDidMount() {
     Api.getRecipes()
       .then((responseJson) => {
-        const recipes = Parsers.parseRecipes(responseJson);
+        const recipes = Parsers.deserializeRecipes(responseJson);
         this.setState({ recipes });
       })
       .catch((error) => {
         console.error(error);
       });
-    //this.setState({ recipes: getRecipes() })
   }
 
   _keyExtractor = (item, key) => item.id;
