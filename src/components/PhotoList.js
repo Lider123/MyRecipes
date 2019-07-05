@@ -12,12 +12,14 @@ export default class PhotoList extends Component {
   static propTypes = {
     photos: PropTypes.array,
     style: ViewPropTypes.style,
+    hasAddButton: PropTypes.bool,
     onAddPress: PropTypes.func,
   };
 
   static defaultProps = {
     photos: [],
     style: {},
+    hasAddButton: false,
     onAddPress: () => {},
   };
 
@@ -33,11 +35,13 @@ export default class PhotoList extends Component {
       <ScrollView
         contentContainerStyle={[styles.container, this.props.style]}
         horizontal={true}>
-        <TouchableOpacity onPress={this.props.onAddPress}>
-          <Image
-            style={styles.photo}
-            source={require("../../img/add-photo.png")}/>
-        </TouchableOpacity>
+        { this.props.hasAddButton &&
+          <TouchableOpacity onPress={this.props.onAddPress}>
+            <Image
+              style={styles.photo}
+              source={require("../../img/add-photo.png")}/>
+          </TouchableOpacity>
+        }
         { this.props.photos.map(this._renderPhoto) }
       </ScrollView>
     );

@@ -80,9 +80,10 @@ export default class CreateRecipeScreen extends Component {
   };
 
   _onSave = () => {
-    const { title, ingredients, description } = this.state;
+    const { title, photos, ingredients, description } = this.state;
     const recipe = new Recipe();
     recipe.title = title;
+    recipe.photos = photos;
     recipe.ingredients = ingredients;
     recipe.text = description;
     this.props.navigation.state.params.onSave(recipe);
@@ -110,6 +111,7 @@ export default class CreateRecipeScreen extends Component {
         <PhotoList
           photos={this.state.photos}
           style={{ marginTop: 16 }}
+          hasAddButton={true}
           onAddPress={this._addPhoto}/>
 
         <View style={styles.ingredientsContainer}>

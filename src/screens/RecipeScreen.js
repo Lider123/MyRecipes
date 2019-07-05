@@ -9,6 +9,7 @@ import {
 
 import {Colors} from "../config";
 import HeaderIcon from "../components/HeaderIcon";
+import PhotoList from "../components/PhotoList";
 
 export default class RecipeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -38,15 +39,10 @@ export default class RecipeScreen extends Component {
         <Text style={[styles.title, { textAlign: "center" }]}>{recipe.title}</Text>
         <ScrollView>
 
-          { recipe.photo !== "" &&
-            <View style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-              <Image
-                style={styles.photo}
-                source={{ uri: recipe.photo }}/>
-            </View>
+          { recipe.photos.length > 0 &&
+            <PhotoList
+              photos={recipe.photos}
+              style={{ margin: 8 }}/>
           }
 
           <Text style={styles.title}>Ingredients:</Text>
