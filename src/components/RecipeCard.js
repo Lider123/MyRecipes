@@ -3,7 +3,8 @@ import {
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  ViewPropTypes,
 } from "react-native";
 import PropTypes from "prop-types";
 
@@ -12,7 +13,7 @@ import {Colors} from "../config";
 
 RecipeCard.propTypes = {
   recipe: PropTypes.instanceOf(Recipe).isRequired,
-  style: PropTypes.style,
+  style: ViewPropTypes.style,
   onPress: PropTypes.func,
 };
 
@@ -31,7 +32,7 @@ export default function RecipeCard({recipe, style, onPress}) {
       { recipe.photos.length > 0 &&
         <Image
           style={styles.photo}
-          source={{uri: "data:image/jpeg;base64," + recipe.photos[0]}}/>
+          source={{ uri: "data:image/jpeg;base64," + recipe.photos[0] }}/>
       }
       <Text style={styles.text}>Ingredients: { ingredients }</Text>
     </TouchableOpacity>

@@ -27,7 +27,7 @@ export default class RecipeListScreen extends Component {
   _onItemPress = item => {
     this.props.navigation.navigate("Recipe", {
       recipe: item,
-      onDeleteRecipe: this._handleDeleteRecipe
+      onDeleteRecipe: this._handleDeleteRecipe,
     });
   };
 
@@ -50,7 +50,7 @@ export default class RecipeListScreen extends Component {
     return RecipeCard({
       recipe: item,
       onPress: () => this._onItemPress(item),
-      style: index === 0 ? { marginTop: 8 } : {}
+      style: index === 0 ? { marginTop: 8 } : {},
     });
   };
 
@@ -63,6 +63,7 @@ export default class RecipeListScreen extends Component {
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}/>
         <FloatingActionButton
+          icon="add"
           color={Colors.colorAccent}
           tintColor={Colors.colorOnAccent}
           onPress={this._onFloatingButtonPress}/>

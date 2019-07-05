@@ -1,6 +1,5 @@
 import React, {Component} from "react"
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,7 +17,7 @@ export default class RecipeScreen extends Component {
       headerRight: (
         <HeaderIcon
           name="delete"
-          onPress={navigation.getParam("deleteRecipe")}/>
+          onPress={ navigation.getParam("deleteRecipe") }/>
       ),
     };
   };
@@ -28,7 +27,7 @@ export default class RecipeScreen extends Component {
   }
 
   _deleteRecipe = () => {
-    const {recipe, onDeleteRecipe} = this.props.navigation.state.params;
+    const { recipe, onDeleteRecipe } = this.props.navigation.state.params;
     onDeleteRecipe(recipe.id);
     this.props.navigation.goBack();
     Api.deleteRecipe(recipe.id)
