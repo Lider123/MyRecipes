@@ -3,24 +3,29 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  TouchableOpacity,
+  ViewPropTypes,
 } from "react-native";
 import PropTypes from "prop-types";
 
 export default class PhotoList extends Component {
   static propTypes = {
     photos: PropTypes.array,
-    style: PropTypes.style,
+    style: ViewPropTypes.style,
+    onAddPress: PropTypes.func,
   };
 
   static defaultProps = {
     photos: [],
     style: {},
+    onAddPress: () => {},
   };
 
-  _renderPhoto = photo => {
+  _renderPhoto = function(photo, i) {
     return <Image
+      key={i}
       style={styles.photo}
-      source={{uri: photo}}/>
+      source={{uri: "data:image/jpeg;base64," + photo}}/>
   };
 
   render() {
@@ -28,10 +33,12 @@ export default class PhotoList extends Component {
       <ScrollView
         contentContainerStyle={[styles.container, this.props.style]}
         horizontal={true}>
-        <Image
-          style={styles.photo}
-          source={require("../../img/add-photo.png")}/>
-        { this.props.photos.map(item => this._renderPhoto(item)) }
+        <TouchableOpacity onPress={this.props.onAddPress}>
+          <Image
+            style={styles.photo}
+            source={require("../../img/add-photo.png")}/>
+        </TouchableOpacity>
+        { this.props.photos.map(this._renderPhoto) }
       </ScrollView>
     );
   }

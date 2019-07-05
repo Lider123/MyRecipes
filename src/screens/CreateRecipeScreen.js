@@ -13,11 +13,24 @@ import {Colors} from "../config";
 import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
 import PhotoList from "../components/PhotoList";
+import ImagePicker from "react-native-image-picker";
+
+const imagePickerOptions = {
+  title: 'Select photo',
+  cancelButtonTitle: 'Cancel',
+  takePhotoButtonTitle: 'Take Photo...',
+  chooseFromLibraryButtonTitle: 'Choose from Library...',
+  mediaType: 'photo',
+  maxWidth: 500,
+  maxHeight: 500,
+  quality: 0.9,
+  allowsEditing: true,
+};
 
 export default class CreateRecipeScreen extends Component {
   state = {
     title: "",
-    photos: ["https://loremflickr.com/320/240/food","https://loremflickr.com/320/240/food","https://loremflickr.com/320/240/food","https://loremflickr.com/320/240/food"],
+    photos: [],
     ingredients: [],
     description: "",
   };
@@ -30,6 +43,17 @@ export default class CreateRecipeScreen extends Component {
 
   _setDescription = text => {
     this.setState({ description: text });
+  };
+
+  _addPhoto = () => {
+    ImagePicker.showImagePicker(imagePickerOptions, (response) => {
+      if (response.error)
+        console.log('ImagePicker Error: ', response.error);
+      else {
+        const {photos} = this.state;
+        this.setState({ photos: [...photos, response.data] });
+      }
+    });
   };
 
   _addIngredient = () => {
@@ -85,7 +109,8 @@ export default class CreateRecipeScreen extends Component {
 
         <PhotoList
           photos={this.state.photos}
-          style={{ marginTop: 16 }}/>
+          style={{ marginTop: 16 }}
+          onAddPress={this._addPhoto}/>
 
         <View style={styles.ingredientsContainer}>
           <CustomButton

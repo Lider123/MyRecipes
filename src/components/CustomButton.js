@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  ViewPropTypes,
 } from "react-native";
 import PropTypes from "prop-types";
 
@@ -12,7 +13,7 @@ CustomButton.propTypes = {
   color: ColorPropType,
   textColor: ColorPropType,
   onPress: PropTypes.func,
-  style: PropTypes.style,
+  style: ViewPropTypes.style,
 };
 
 CustomButton.defaultProps = {
