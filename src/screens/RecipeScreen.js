@@ -1,5 +1,6 @@
 import React, {Component} from "react"
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -23,8 +24,27 @@ export default class RecipeScreen extends Component {
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({ deleteRecipe: this._deleteRecipe });
+    this.props.navigation.setParams({ deleteRecipe: this._showConfirmDialog });
   }
+
+  _showConfirmDialog = () => {
+    Alert.alert(
+      'Confirm deletion',
+      'Are you sure you want to delete recipe?',
+      [
+        {
+          text: 'No',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {
+          text: 'Yes',
+          onPress: this._deleteRecipe
+        },
+      ],
+      { cancelable: true },
+    );
+  };
 
   _deleteRecipe = () => {
     const { recipe, onDeleteRecipe } = this.props.navigation.state.params;
