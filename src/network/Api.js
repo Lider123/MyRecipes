@@ -8,7 +8,7 @@ export default class Api {
       .then((response) => response.json());
   }
 
-  static putRecipe(recipe) {
+  static createOrUpdateRecipe(recipe) {
     const data = Serializers.serializeRecipe(recipe);
     return fetch(Api.BASE_API + "/recipes/" + recipe.id, {
       method: 'PATCH',

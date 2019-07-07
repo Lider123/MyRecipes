@@ -11,20 +11,34 @@ import {Colors} from "../config";
 import HeaderIcon from "../components/HeaderIcon";
 import PhotoList from "../components/PhotoList";
 import Api from "../network/Api";
+import Recipe from "../models/Recipe";
 
 export default class RecipeScreen extends Component {
+  state = {
+    recipe: new Recipe(),
+  };
+
   static navigationOptions = ({ navigation }) => {
     return {
       headerRight: (
-        <HeaderIcon
-          name="delete"
-          onPress={ navigation.getParam("deleteRecipe") }/>
+        <View style={{ flexDirection: "row" }}>
+          <HeaderIcon
+            name="edit"
+            onPress={ navigation.getParam("editRecipe") }/>
+          <HeaderIcon
+            name="delete"
+            onPress={ navigation.getParam("deleteRecipe") }/>
+        </View>
       ),
     };
   };
 
   componentDidMount() {
-    this.props.navigation.setParams({ deleteRecipe: this._showConfirmDialog });
+    this.setState({ recipe: this.props.navigation.state.params.recipe });
+    this.props.navigation.setParams({
+      deleteRecipe: this._showConfirmDialog,
+      editRecipe: this._goEditRecipe,
+    });
   }
 
   _showConfirmDialog = () => {
@@ -46,8 +60,22 @@ export default class RecipeScreen extends Component {
     );
   };
 
+  _goEditRecipe = () => {
+    const {recipe} = this.state;
+    this.props.navigation.navigate("CreateRecipe", {
+      recipe: recipe,
+      onSave: this._updateRecipe,
+    });
+  };
+
+  _updateRecipe = (recipe) => {
+    this.props.navigation.state.params.onUpdateRecipe(recipe);
+    this.setState({recipe});
+  };
+
   _deleteRecipe = () => {
-    const { recipe, onDeleteRecipe } = this.props.navigation.state.params;
+    const {recipe} = this.state;
+    const {onDeleteRecipe} = this.props.navigation.state.params;
     onDeleteRecipe(recipe.id);
     this.props.navigation.goBack();
     Api.deleteRecipe(recipe.id)
@@ -58,7 +86,7 @@ export default class RecipeScreen extends Component {
   };
 
   render() {
-    const {recipe} = this.props.navigation.state.params;
+    const {recipe} = this.state;
     return (
       <View style={styles.container}>
         <Text style={[styles.title, { textAlign: "center" }]}>{recipe.title}</Text>

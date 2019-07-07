@@ -10,6 +10,7 @@ import {Colors} from "../config";
 import RecipeCard from "../components/RecipeCard";
 import Api from "../network/Api";
 import * as Parsers from "../network/Deserializers";
+import Recipe from "../models/Recipe";
 
 export default class RecipeListScreen extends Component {
   state = {
@@ -39,21 +40,35 @@ export default class RecipeListScreen extends Component {
     this.props.navigation.navigate("Recipe", {
       recipe: item,
       onDeleteRecipe: this._handleDeleteRecipe,
+      onUpdateRecipe: this._handleUpdateRecipe,
     });
   };
 
   _onFloatingButtonPress = () => {
-    this.props.navigation.navigate("CreateRecipe", { onSave: this._handleCreateRecipe });
+    this.props.navigation.navigate("CreateRecipe", {
+      recipe: new Recipe(),
+      onSave: this._handleCreateRecipe
+    });
   };
 
   _handleCreateRecipe = recipe => {
     const {recipes} = this.state;
     recipes.push(recipe);
+    this.setState({ recipes: [...recipes] });
+  };
+
+  _handleUpdateRecipe = recipe => {
+    const {recipes} = this.state;
+    recipes.map(value => {
+      if (value.id === recipe.id)
+        return recipe;
+    });
+    this.setState({ recipes: [...recipes] });
   };
 
   _handleDeleteRecipe = id => {
     const {recipes} = this.state;
-    const filtered = recipes.filter((value) => value.id !== id);
+    const filtered = recipes.filter(value => value.id !== id);
     this.setState({ recipes: filtered });
   };
 

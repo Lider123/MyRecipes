@@ -9,7 +9,6 @@ import {
 
 import LabeledEditText from "../components/LabeledEditText";
 import Ingredient from "../models/Ingredient";
-import Recipe from "../models/Recipe";
 import {Colors} from "../config";
 import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
@@ -36,6 +35,17 @@ export default class CreateRecipeScreen extends Component {
     ingredients: [],
     description: "",
   };
+
+  componentDidMount() {
+    const recipe = this.props.navigation.state.params.recipe;
+    console.log(recipe);
+    this.setState({
+      title: recipe.title,
+      photos: recipe.photos,
+      ingredients: recipe.ingredients,
+      description: recipe.text,
+    });
+  }
 
   _keyExtractor = (item, key) => item.id;
 
@@ -103,14 +113,14 @@ export default class CreateRecipeScreen extends Component {
     if (!this._inputIsValid())
       return;
     const { title, photos, ingredients, description } = this.state;
-    const recipe = new Recipe();
+    const recipe = this.props.navigation.state.params.recipe;
     recipe.title = title;
     recipe.photos = photos;
     recipe.ingredients = ingredients;
     recipe.text = description;
     this.props.navigation.state.params.onSave(recipe);
     this.props.navigation.goBack();
-    Api.putRecipe(recipe)
+    Api.createOrUpdateRecipe(recipe)
       .then(res => {
         console.log("Recipe has been created");
       })
@@ -133,6 +143,7 @@ export default class CreateRecipeScreen extends Component {
 
         <LabeledEditText
           label="Title"
+          value={this.state.title}
           onChangeText={this._setTitle}/>
 
         <PhotoList
@@ -155,6 +166,7 @@ export default class CreateRecipeScreen extends Component {
 
         <LabeledEditText
           label="Description"
+          value={this.state.description}
           multiline={true}
           onChangeText={this._setDescription}/>
 

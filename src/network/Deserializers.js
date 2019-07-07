@@ -3,6 +3,8 @@ import Ingredient from "../models/Ingredient";
 
 export const deserializeRecipes = function(json) {
   const recipes = [];
+  if (!json.documents)
+    return recipes;
   for (let i = 0; i < json.documents.length; i++) {
     const recipe = deserializeRecipe(json.documents[i]);
     recipes.push(recipe)
@@ -22,6 +24,8 @@ export const deserializeRecipe = function(json) {
 
 export const deserializeIngredients = function(json) {
   const ingredients = [];
+  if (!json)
+    return ingredients;
   for (let i = 0; i < json.length; i++) {
     const ingredient = deserializeIngredient(json[i]);
     ingredients.push(ingredient);

@@ -9,21 +9,24 @@ import PropTypes from "prop-types"
 
 LabeledEditText.propTypes = {
   label: PropTypes.string.isRequired,
+  value: PropTypes.string,
   multiline: PropTypes.bool,
   onChangeText: PropTypes.func,
 };
 
 LabeledEditText.defaultProps = {
+  value: "",
   multiline: false,
   onChangeText: () => {},
 };
 
-export default function LabeledEditText({ label, multiline, onChangeText }) {
+export default function LabeledEditText({ label, value, multiline, onChangeText }) {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.inputBackground}>
         <TextInput
+          value={value}
           multiline={multiline}
           onChangeText={onChangeText} />
       </View>
