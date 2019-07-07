@@ -45,7 +45,8 @@ export default class RecipeListScreen extends Component {
   };
 
   _onFloatingButtonPress = () => {
-    this.props.navigation.navigate("CreateRecipe", {
+    this.props.navigation.navigate("EditRecipe", {
+      title: "New recipe",
       recipe: new Recipe(),
       onSave: this._handleCreateRecipe
     });

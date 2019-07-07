@@ -28,7 +28,7 @@ const imagePickerOptions = {
   allowsEditing: true,
 };
 
-export default class CreateRecipeScreen extends Component {
+export default class EditRecipeScreen extends Component {
   state = {
     title: "",
     photos: [],
@@ -36,9 +36,15 @@ export default class CreateRecipeScreen extends Component {
     description: "",
   };
 
+  static navigationOptions = ({ navigation }) => {
+    const { state } = navigation;
+    return {
+      title: `${state.params && state.params.title ? state.params.title : "New recipe"}`,
+    };
+  };
+
   componentDidMount() {
     const recipe = this.props.navigation.state.params.recipe;
-    console.log(recipe);
     this.setState({
       title: recipe.title,
       photos: recipe.photos,

@@ -62,14 +62,16 @@ export default class RecipeScreen extends Component {
 
   _goEditRecipe = () => {
     const {recipe} = this.state;
-    this.props.navigation.navigate("CreateRecipe", {
+    this.props.navigation.navigate("EditRecipe", {
+      title: "Edit recipe",
       recipe: recipe,
       onSave: this._updateRecipe,
     });
   };
 
   _updateRecipe = (recipe) => {
-    this.props.navigation.state.params.onUpdateRecipe(recipe);
+    const {onUpdateRecipe} = this.props.navigation.state.params;
+    onUpdateRecipe(recipe);
     this.setState({recipe});
   };
 
