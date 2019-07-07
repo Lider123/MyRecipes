@@ -1,6 +1,6 @@
 import RecipeListScreen from "./screens/RecipeListScreen";
 import RecipeScreen from "./screens/RecipeScreen";
-import CreateRecipeScreen from "./screens/CreateRecipeScreen";
+import EditRecipeScreen from "./screens/EditRecipeScreen";
 import {Colors} from "./config";
 
 export const navigationMap = {
@@ -16,11 +16,8 @@ export const navigationMap = {
       title: "Details",
     },
   },
-  CreateRecipe: {
-    screen: CreateRecipeScreen,
-    navigationOptions: {
-      title: "New recipe",
-    },
+  EditRecipe: {
+    screen: EditRecipeScreen,
   },
 };
 
