@@ -7,11 +7,12 @@ import {
   View
 } from "react-native"
 
-import {Colors} from "../config";
 import HeaderIcon from "../components/HeaderIcon";
 import PhotoList from "../components/PhotoList";
 import Api from "../network/Api";
 import Recipe from "../models/Recipe";
+import Colors from "../config/Colors";
+import translate from "../utils/language.utils"
 
 export default class RecipeScreen extends Component {
   state = {
@@ -43,16 +44,16 @@ export default class RecipeScreen extends Component {
 
   _showConfirmDialog = () => {
     Alert.alert(
-      'Confirm deletion',
-      'Are you sure you want to delete recipe?',
+      translate("RECIPE_SCREEN_deleteDialogTitle"),
+      translate("RECIPE_SCREEN_deleteDialogMessage"),
       [
         {
-          text: 'No',
+          text: translate("RECIPE_SCREEN_deleteDialogNegative"),
           onPress: () => {},
           style: 'cancel',
         },
         {
-          text: 'Yes',
+          text: translate("RECIPE_SCREEN_deleteDialogPositive"),
           onPress: this._deleteRecipe
         },
       ],
@@ -63,7 +64,7 @@ export default class RecipeScreen extends Component {
   _goEditRecipe = () => {
     const {recipe} = this.state;
     this.props.navigation.navigate("EditRecipe", {
-      title: "Edit recipe",
+      title: translate("RECIPE_SCREEN_editRecipeTitle"),
       recipe: recipe,
       onSave: this._updateRecipe,
     });
@@ -100,7 +101,7 @@ export default class RecipeScreen extends Component {
               style={{ margin: 8 }}/>
           }
 
-          <Text style={styles.title}>Ingredients:</Text>
+          <Text style={styles.title}>{translate("RECIPE_SCREEN_ingredients")}:</Text>
           {
             recipe.ingredients.map((item, key) => (
               <Text
@@ -109,7 +110,7 @@ export default class RecipeScreen extends Component {
             ))
           }
 
-          <Text style={styles.title}>Description</Text>
+          <Text style={styles.title}>{translate("RECIPE_SCREEN_description")}</Text>
           <Text style={styles.text}>{ recipe.text }</Text>
 
         </ScrollView>

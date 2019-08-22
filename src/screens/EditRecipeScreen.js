@@ -9,18 +9,19 @@ import {
 
 import LabeledEditText from "../components/LabeledEditText";
 import Ingredient from "../models/Ingredient";
-import {Colors} from "../config";
 import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
 import PhotoList from "../components/PhotoList";
 import ImagePicker from "react-native-image-picker";
 import Api from "../network/Api";
+import Colors from "../config/Colors";
+import translate from "../utils/language.utils";
 
 const imagePickerOptions = {
-  title: 'Select photo',
-  cancelButtonTitle: 'Cancel',
-  takePhotoButtonTitle: 'Take Photo...',
-  chooseFromLibraryButtonTitle: 'Choose from Library...',
+  title: translate("PHOTO_DIALOG_selectPhoto"),
+  cancelButtonTitle: translate("PHOTO_DIALOG_cancel"),
+  takePhotoButtonTitle: translate("PHOTO_DIALOG_takePhoto"),
+  chooseFromLibraryButtonTitle: translate("PHOTO_DIALOG_chooseFromLibrary"),
   mediaType: 'photo',
   maxWidth: 500,
   maxHeight: 500,
@@ -39,7 +40,7 @@ export default class EditRecipeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     const { state } = navigation;
     return {
-      title: `${state.params && state.params.title ? state.params.title : "New recipe"}`,
+      title: `${state.params && state.params.title ? state.params.title : translate("EDIT_RECIPE_SCREEN_title")}`,
     };
   };
 
@@ -101,15 +102,15 @@ export default class EditRecipeScreen extends Component {
 
   _inputIsValid() {
     if (this.state.title.length < 1) {
-      ToastAndroid.show("Set the title", ToastAndroid.SHORT, ToastAndroid.CENTER);
+      ToastAndroid.show(translate("EDIT_RECIPE_SCREEN_titleIsEmpty"), ToastAndroid.SHORT, ToastAndroid.CENTER);
       return false;
     }
     if (this.state.ingredients.some(item => item.name.length < 1 || item.count.length < 1)) {
-      ToastAndroid.show("Set ingredients fields", ToastAndroid.SHORT, ToastAndroid.CENTER);
+      ToastAndroid.show(translate("EDIT_RECIPE_SCREEN_ingredientsAreEmpty"), ToastAndroid.SHORT, ToastAndroid.CENTER);
       return false;
     }
     if (this.state.description.length < 1) {
-      ToastAndroid.show("Set the description", ToastAndroid.SHORT, ToastAndroid.CENTER);
+      ToastAndroid.show(translate("EDIT_RECIPE_SCREEN_descriptionIsEmpty"), ToastAndroid.SHORT, ToastAndroid.CENTER);
       return false;
     }
     return true;
@@ -148,7 +149,7 @@ export default class EditRecipeScreen extends Component {
       <ScrollView contentContainerStyle={styles.container}>
 
         <LabeledEditText
-          label="Title"
+          label={translate("EDIT_RECIPE_SCREEN_labelTitle")}
           value={this.state.title}
           onChangeText={this._setTitle}/>
 
@@ -159,7 +160,7 @@ export default class EditRecipeScreen extends Component {
 
         <View style={styles.ingredientsContainer}>
           <CustomButton
-            text="Add ingredient"
+            text={translate("EDIT_RECIPE_SCREEN_labelAddIngredient")}
             color={Colors.colorAccent}
             textColor={Colors.colorOnAccent}
             onPress={this._addIngredient}/>
@@ -171,13 +172,13 @@ export default class EditRecipeScreen extends Component {
         </View>
 
         <LabeledEditText
-          label="Description"
+          label={translate("EDIT_RECIPE_SCREEN_labelDescription")}
           value={this.state.description}
           multiline={true}
           onChangeText={this._setDescription}/>
 
         <CustomButton
-          text="Save"
+          text={translate("EDIT_RECIPE_SCREEN_buttonSave")}
           color={Colors.colorAccent}
           textColor={Colors.colorOnAccent}
           onPress={this._onSave}

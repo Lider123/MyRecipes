@@ -9,7 +9,8 @@ import {
 import PropTypes from "prop-types";
 
 import Recipe from "../models/Recipe";
-import {Colors} from "../config";
+import Colors from "../config/Colors";
+import translate from '../utils/language.utils';
 
 RecipeCard.propTypes = {
   recipe: PropTypes.instanceOf(Recipe).isRequired,
@@ -34,7 +35,7 @@ export default function RecipeCard({recipe, style, onPress}) {
           style={styles.photo}
           source={{ uri: "data:image/jpeg;base64," + recipe.photos[0] }}/>
       }
-      <Text style={styles.text}>Ingredients: { ingredients }</Text>
+      <Text style={styles.text}>{translate('RECIPE_CARD_ingredients')}: { ingredients }</Text>
     </TouchableOpacity>
   );
 }
