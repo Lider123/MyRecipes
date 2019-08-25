@@ -89,13 +89,13 @@ export default class EditRecipeScreen extends Component {
 
   _setIngredientName = ({ id, text }) => {
     const {ingredients} = this.state;
-    ingredients.find(value => value.id === id)._name = text;
+    ingredients.find(value => value.id === id).name = text;
     this.setState({ ingredients: [...ingredients] });
   };
 
   _setIngredientCount = ({ id, text }) => {
     const {ingredients} = this.state;
-    ingredients.find(value => value.id === id)._count = text;
+    ingredients.find(value => value.id === id).count = text;
     this.setState({ ingredients: [...ingredients] });
   };
 

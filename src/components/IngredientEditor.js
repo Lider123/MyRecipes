@@ -17,7 +17,7 @@ IngredientEditor.propTypes = {
   onClosePress: PropTypes.func,
 };
 
-Ingredient.defaultProps = {
+IngredientEditor.defaultProps = {
   onChangeName: () => {},
   onChangeCount: () => {},
   onClosePress: null,
