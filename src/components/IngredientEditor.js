@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 import Icon from "react-native-vector-icons/MaterialIcons"
 
 import Ingredient from "../models/Ingredient";
+import translate from "../utils/language.utils";
 
 IngredientEditor.propTypes = {
   ingredient: PropTypes.instanceOf(Ingredient).isRequired,
@@ -28,12 +29,12 @@ export default function IngredientEditor({ ingredient, onChangeName, onChangeCou
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="name"
+        placeholder={translate("EDIT_INGREDIENT_placeholderName")}
         style={styles.inputBackground}
         onChangeText={ onChangeName }
         value={ingredient.name}/>
       <TextInput
-        placeholder="count"
+        placeholder={translate("EDIT_INGREDIENT_placeholderCount")}
         style={styles.inputBackground}
         onChangeText={ onChangeCount }
         value={ingredient.count}/>

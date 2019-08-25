@@ -6,11 +6,12 @@ import {
   View
 } from "react-native"
 import FloatingActionButton from "../components/FloatingActionButton";
-import {Colors} from "../config";
 import RecipeCard from "../components/RecipeCard";
 import Api from "../network/Api";
 import * as Parsers from "../network/Deserializers";
 import Recipe from "../models/Recipe";
+import Colors from "../config/Colors";
+import translate from "../utils/language.utils";
 
 export default class RecipeListScreen extends Component {
   state = {
@@ -46,7 +47,7 @@ export default class RecipeListScreen extends Component {
 
   _onFloatingButtonPress = () => {
     this.props.navigation.navigate("EditRecipe", {
-      title: "New recipe",
+      title: translate("RECIPE_LIST_SCREEN_newRecipe"),
       recipe: new Recipe(),
       onSave: this._handleCreateRecipe
     });

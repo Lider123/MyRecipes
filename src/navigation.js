@@ -1,19 +1,20 @@
 import RecipeListScreen from "./screens/RecipeListScreen";
 import RecipeScreen from "./screens/RecipeScreen";
 import EditRecipeScreen from "./screens/EditRecipeScreen";
-import {Colors} from "./config";
+import Colors from "./config/Colors";
+import translate from "./utils/language.utils"
 
 export const navigationMap = {
   RecipeList: {
     screen: RecipeListScreen,
     navigationOptions: {
-      title: "Recipes",
+      title: translate("RECIPE_LIST_SCREEN_title"),
     },
   },
   Recipe: {
     screen: RecipeScreen,
     navigationOptions: {
-      title: "Details",
+      title: translate("RECIPE_SCREEN_title"),
     },
   },
   EditRecipe: {

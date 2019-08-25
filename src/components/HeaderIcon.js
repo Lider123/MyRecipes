@@ -5,8 +5,7 @@ import {
 } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons"
 import PropTypes from "prop-types";
-
-import {Colors} from "../config";
+import Colors from "../config/Colors";
 
 HeaderIcon.propTypes = {
   name: PropTypes.string.isRequired,
