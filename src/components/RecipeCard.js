@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
   ViewPropTypes,
 } from "react-native";
 import PropTypes from "prop-types";
@@ -29,38 +30,56 @@ export default function RecipeCard({recipe, style, onPress}) {
     <TouchableOpacity
       style={[styles.container, style]}
       onPress={onPress}>
-      <Text style={styles.title}>{recipe.title}</Text>
       { recipe.photos.length > 0 &&
         <Image
           style={styles.photo}
           source={{ uri: "data:image/jpeg;base64," + recipe.photos[0] }}/>
       }
-      <Text style={styles.text}>{translate('RECIPE_CARD_ingredients')}: { ingredients }</Text>
+      <View style={styles.info_container}>
+        <Text style={styles.title}>{recipe.title}</Text>
+        <Text
+          ellipsizeMode="tail"
+          style={styles.text}>{ ingredients }</Text>
+      </View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 30,
-    backgroundColor: Colors.colorSurface,
-    padding: 8,
+    height: 100,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "stretch",
+    flex: 1,
+    borderRadius: 4,
     marginBottom: 8,
-  },
-  title: {
-    fontWeight: "bold",
-    textAlign: "center",
-    fontSize: 16,
+    backgroundColor: Colors.colorSurface,
+    elevation: 1,
   },
   photo: {
-    width: 200,
-    height: 200,
-    margin: 8,
+    width: 100,
+    height: 100,
+    alignSelf: "center",
+    borderRadius: 4,
     resizeMode: "cover",
   },
+  info_container: {
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "stretch",
+    flex: 1,
+  },
+  title: {
+    paddingTop: 8,
+    paddingStart: 8,
+    paddingEnd: 8,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   text: {
+    flex: 1,
+    padding: 8,
     fontSize: 14,
   },
 });
