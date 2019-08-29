@@ -159,16 +159,16 @@ export default class EditRecipeScreen extends Component {
           onAddPress={this._addPhoto}/>
 
         <View style={styles.ingredientsContainer}>
-          <CustomButton
-            text={translate("EDIT_RECIPE_SCREEN_labelAddIngredient")}
-            color={Colors.colorAccent}
-            textColor={Colors.colorOnAccent}
-            onPress={this._addIngredient}/>
           <FlatList
             data={this.state.ingredients}
             extraData={this.state.ingredients}
             keyExtractor={this._keyExtractor}
             renderItem={this._renderItem}/>
+          <CustomButton
+            text={translate("EDIT_RECIPE_SCREEN_labelAddIngredient")}
+            color={Colors.colorAccent}
+            textColor={Colors.colorOnAccent}
+            onPress={this._addIngredient}/>
         </View>
 
         <LabeledEditText
@@ -191,7 +191,7 @@ export default class EditRecipeScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
+    padding: 16,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch",

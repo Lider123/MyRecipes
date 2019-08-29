@@ -93,7 +93,7 @@ export default class RecipeScreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={[styles.title, { textAlign: "center" }]}>{recipe.title}</Text>
-        <ScrollView>
+        <ScrollView style={{ paddingStart: 16, paddingEnd: 16 }}>
 
           { recipe.photos.length > 0 &&
             <PhotoList
@@ -111,7 +111,7 @@ export default class RecipeScreen extends Component {
           }
 
           <Text style={styles.title}>{translate("RECIPE_SCREEN_description")}</Text>
-          <Text style={styles.text}>{ recipe.text }</Text>
+          <Text style={[styles.text, { paddingBottom: 16 }]}>{ recipe.text }</Text>
 
         </ScrollView>
       </View>
@@ -136,12 +136,10 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 16,
-    padding: 8,
     paddingTop: 16,
+    paddingBottom: 4,
   },
   text: {
     fontSize: 14,
-    paddingLeft: 8,
-    paddingRight: 8,
   },
 });

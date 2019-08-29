@@ -78,7 +78,7 @@ export default class RecipeListScreen extends Component {
     return RecipeCard({
       recipe: item,
       onPress: () => this._onItemPress(item),
-      style: index === 0 ? { marginTop: 8 } : {},
+      style: index === 0 ? { marginTop: 16 } : {},
     });
   };
 
@@ -116,7 +116,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch",
     backgroundColor: Colors.colorBackground,
-    paddingLeft: 8,
-    paddingRight: 8,
   },
 });

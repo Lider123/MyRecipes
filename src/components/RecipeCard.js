@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 
 import Recipe from "../models/Recipe";
 import Colors from "../config/Colors";
-import translate from '../utils/language.utils';
 
 RecipeCard.propTypes = {
   recipe: PropTypes.instanceOf(Recipe).isRequired,
@@ -53,7 +52,8 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     flex: 1,
     borderRadius: 4,
-    marginBottom: 8,
+    margin: 16,
+    marginTop: 0,
     backgroundColor: Colors.colorSurface,
     elevation: 1,
   },
