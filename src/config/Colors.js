@@ -1,8 +1,8 @@
 export default {
-  colorPrimary: "#590e0a",
-  colorAccent: "#e0b36c",
+  colorPrimary: "#590E0A",
+  colorAccent: "#E0B36C",
   colorOnPrimary: "#FFF",
   colorOnAccent: "#000",
-  colorBackground: "#CCC",
+  colorBackground: "#ECECEC",
   colorSurface: "#FFF",
 };

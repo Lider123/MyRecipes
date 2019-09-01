@@ -5,13 +5,14 @@ import {
   StyleSheet,
   View
 } from "react-native"
-import FloatingActionButton from "../components/FloatingActionButton";
+
 import RecipeCard from "../components/RecipeCard";
 import Api from "../network/Api";
 import * as Parsers from "../network/Deserializers";
 import Recipe from "../models/Recipe";
 import Colors from "../config/Colors";
 import translate from "../utils/language.utils";
+import HeaderIcon from '../components/HeaderIcon';
 
 export default class RecipeListScreen extends Component {
   state = {
@@ -19,8 +20,23 @@ export default class RecipeListScreen extends Component {
     isLoading: false,
   };
 
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerRight: (
+        <View style={{ flexDirection: "row" }}>
+          <HeaderIcon
+            name="add"
+            onPress={navigation.getParam("addNewRecipe")}/>
+        </View>
+      ),
+    };
+  };
+
   componentDidMount() {
     this.setState({ isLoading: true });
+    this.props.navigation.setParams({
+      addNewRecipe: this._addNewRecipe,
+    });
     Api.getRecipes()
       .then((responseJson) => {
         const recipes = Parsers.deserializeRecipes(responseJson);
@@ -45,7 +61,7 @@ export default class RecipeListScreen extends Component {
     });
   };
 
-  _onFloatingButtonPress = () => {
+  _addNewRecipe = () => {
     this.props.navigation.navigate("EditRecipe", {
       title: translate("RECIPE_LIST_SCREEN_newRecipe"),
       recipe: new Recipe(),
@@ -98,14 +114,10 @@ export default class RecipeListScreen extends Component {
             data={this.state.recipes}
             extraData={this.state.recipes}
             renderItem={this._renderItem}
-            keyExtractor={this._keyExtractor}/>
-          <FloatingActionButton
-            icon="add"
-            color={Colors.colorAccent}
-            tintColor={Colors.colorOnAccent}
-            onPress={this._onFloatingButtonPress}/>
+            keyExtractor={this._keyExtractor}
+            style={styles.list}/>
         </View>
-    );
+      );
   }
 }
 
@@ -116,5 +128,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch",
     backgroundColor: Colors.colorBackground,
+  },
+  list: {
+    paddingStart: 16,
+    paddingEnd: 16
   },
 });
