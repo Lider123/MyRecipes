@@ -52,8 +52,7 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     flex: 1,
     borderRadius: 4,
-    margin: 16,
-    marginTop: 0,
+    marginBottom: 16,
     backgroundColor: Colors.colorSurface,
     elevation: 1,
   },
@@ -81,5 +80,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 8,
     fontSize: 14,
+    opacity: .54,
   },
 });
