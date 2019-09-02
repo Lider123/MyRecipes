@@ -55,6 +55,7 @@ export default class RecipeListScreen extends Component {
 
   _onItemPress = item => {
     this.props.navigation.navigate("Recipe", {
+      title: item.title,
       recipe: item,
       onDeleteRecipe: this._handleDeleteRecipe,
       onUpdateRecipe: this._handleUpdateRecipe,
