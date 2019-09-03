@@ -1,6 +1,7 @@
 import React, {Component} from "react"
 import {
   Alert,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,7 +9,6 @@ import {
 } from "react-native"
 
 import HeaderIcon from "../components/HeaderIcon";
-import PhotoList from "../components/PhotoList";
 import Api from "../network/Api";
 import Recipe from "../models/Recipe";
 import Colors from "../config/Colors";
@@ -21,6 +21,7 @@ export default class RecipeScreen extends Component {
 
   static navigationOptions = ({ navigation }) => {
     return {
+      title: `${navigation.state.params.title}`,
       headerRight: (
         <View style={{ flexDirection: "row" }}>
           <HeaderIcon
@@ -92,27 +93,26 @@ export default class RecipeScreen extends Component {
     const {recipe} = this.state;
     return (
       <View style={styles.container}>
-        <Text style={[styles.title, { textAlign: "center" }]}>{recipe.title}</Text>
-        <ScrollView style={{ paddingStart: 16, paddingEnd: 16 }}>
+        <ScrollView>
 
           { recipe.photos.length > 0 &&
-            <PhotoList
-              photos={recipe.photos}
-              style={{ margin: 8 }}/>
+            <Image
+              style={styles.photo}
+              source={{uri: "data:image/jpeg;base64," + recipe.photos[0]}}/>
           }
 
-          <Text style={styles.title}>{translate("RECIPE_SCREEN_ingredients")}:</Text>
-          {
-            recipe.ingredients.map((item, key) => (
-              <Text
-                style={styles.text}
-                key={key}>&#183; { item.name }, { item.count }</Text>
-            ))
-          }
-
-          <Text style={styles.title}>{translate("RECIPE_SCREEN_description")}</Text>
-          <Text style={[styles.text, { paddingBottom: 16 }]}>{ recipe.text }</Text>
-
+          <View style={{ paddingStart: 16, paddingEnd: 16 }}>
+            <Text style={styles.title}>{translate("RECIPE_SCREEN_ingredients")}:</Text>
+            {
+              recipe.ingredients.map((item, key) => (
+                <Text
+                  style={styles.text}
+                  key={key}>&#183; { item.name }, { item.count }</Text>
+              ))
+            }
+            <Text style={styles.title}>{translate("RECIPE_SCREEN_description")}</Text>
+            <Text style={[styles.text, { paddingBottom: 16 }]}>{ recipe.text }</Text>
+          </View>
         </ScrollView>
       </View>
     );
@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.colorBackground,
   },
   photo: {
-    width: 200,
+    flex: 1,
     height: 200,
-    margin: 8,
+    alignSelf: "stretch",
     resizeMode: "cover",
   },
   title: {

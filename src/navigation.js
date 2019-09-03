@@ -13,9 +13,6 @@ export const navigationMap = {
   },
   Recipe: {
     screen: RecipeScreen,
-    navigationOptions: {
-      title: translate("RECIPE_SCREEN_title"),
-    },
   },
   EditRecipe: {
     screen: EditRecipeScreen,
