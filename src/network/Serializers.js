@@ -32,8 +32,8 @@ export const serializeRecipe = function(recipe) {
       title: {
         stringValue: recipe.title,
       },
-      photos: {
-        arrayValue: recipe.photos.length > 0 ? serializePhotos(recipe.photos) : {}
+      photo: {
+        stringValue: recipe.photo,
       },
       text: {
         stringValue: recipe.text,
@@ -45,15 +45,5 @@ export const serializeRecipe = function(recipe) {
 export const serializeRecipes = function(recipes) {
   return {
     documents: recipes.map(serializeRecipe),
-  };
-};
-
-const serializePhotos = function(photos) {
-  return {
-    values: photos.map(item => {
-      return {
-        stringValue: item
-      };
-    }),
   };
 };

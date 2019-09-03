@@ -10,19 +10,22 @@ import PropTypes from "prop-types";
 
 export default class PhotoList extends Component {
   static propTypes = {
-    photos: PropTypes.arrayOf(PropTypes.string),
+    photo: PropTypes.arrayOf(PropTypes.string),
     style: ViewPropTypes.style,
     hasAddButton: PropTypes.bool,
     onAddPress: PropTypes.func,
   };
 
   static defaultProps = {
-    photos: [],
+    photo: [],
     style: {},
     onAddPress: null,
   };
 
   _renderPhoto = function(photo, i) {
+    console.log("TEST10", "" + photo);
+    const source = {uri: "data:image/jpeg;base64," + photo};
+    console.log("TEST6", "" + source);
     return <Image
       key={i}
       style={styles.photo}
@@ -41,7 +44,7 @@ export default class PhotoList extends Component {
               source={require("../../img/add-photo.png")}/>
           </TouchableOpacity>
         }
-        { this.props.photos.map(this._renderPhoto) }
+        { this.props.photo.map(this._renderPhoto) }
       </ScrollView>
     );
   }

@@ -16,7 +16,7 @@ export const deserializeRecipe = function(json) {
   const recipe = new Recipe();
   recipe.id = getName(json.name);
   recipe.title = json.fields.title.stringValue;
-  recipe.photos = getPhotos(json.fields.photos.arrayValue.values);
+  recipe.photo = json.fields.photo.stringValue;
   recipe.text = json.fields.text.stringValue;
   recipe.ingredients = deserializeIngredients(json.fields.ingredients.arrayValue.values);
   return recipe;
@@ -44,15 +44,4 @@ export const deserializeIngredient = function(json) {
 const getName = function(str) {
   const split = str.split('/');
   return split[split.length-1]
-};
-
-const getPhotos = function(jsonArray) {
-  const result = [];
-  if (!jsonArray)
-    return result;
-
-  for (let i = 0; i < jsonArray.length; i++) {
-    result.push(jsonArray[i].stringValue);
-  }
-  return result;
 };
