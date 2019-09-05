@@ -95,10 +95,10 @@ export default class RecipeScreen extends Component {
       <View style={styles.container}>
         <ScrollView>
 
-          { recipe.photos.length > 0 &&
+          { recipe.photo !== "" &&
             <Image
               style={styles.photo}
-              source={{uri: "data:image/jpeg;base64," + recipe.photos[0]}}/>
+              source={{uri: "data:image/jpeg;base64," + recipe.photo}}/>
           }
 
           <View style={{ paddingStart: 16, paddingEnd: 16 }}>

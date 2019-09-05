@@ -29,10 +29,10 @@ export default function RecipeCard({recipe, style, onPress}) {
     <TouchableOpacity
       style={[styles.container, style]}
       onPress={onPress}>
-      { recipe.photos.length > 0 &&
+      { recipe.photo !== "" &&
         <Image
           style={styles.photo}
-          source={{ uri: "data:image/jpeg;base64," + recipe.photos[0] }}/>
+          source={{ uri: "data:image/jpeg;base64," + recipe.photo }}/>
       }
       <View style={styles.info_container}>
         <Text style={styles.title}>{recipe.title}</Text>

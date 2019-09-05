@@ -11,11 +11,12 @@ import LabeledEditText from "../components/LabeledEditText";
 import Ingredient from "../models/Ingredient";
 import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
-import PhotoList from "../components/PhotoList";
 import ImagePicker from "react-native-image-picker";
 import Api from "../network/Api";
 import Colors from "../config/Colors";
 import translate from "../utils/language.utils";
+import EditPhotoView from '../components/EditPhotoView';
+import PhotoList from '../components/PhotoList';
 
 const imagePickerOptions = {
   title: translate("PHOTO_DIALOG_selectPhoto"),
@@ -32,7 +33,7 @@ const imagePickerOptions = {
 export default class EditRecipeScreen extends Component {
   state = {
     title: "",
-    photos: [],
+    photo: "",
     ingredients: [],
     description: "",
   };
@@ -48,7 +49,7 @@ export default class EditRecipeScreen extends Component {
     const recipe = this.props.navigation.state.params.recipe;
     this.setState({
       title: recipe.title,
-      photos: recipe.photos,
+      photo: recipe.photo,
       ingredients: recipe.ingredients,
       description: recipe.text,
     });
@@ -70,11 +71,13 @@ export default class EditRecipeScreen extends Component {
         return;
       if (response.error)
         console.log('ImagePicker Error: ', response.error);
-      else {
-        const {photos} = this.state;
-        this.setState({ photos: [...photos, response.data] });
-      }
+      else
+        this.setState({ photo: response.data });
     });
+  };
+
+  _removePhoto = () => {
+    this.setState({ photo: "" });
   };
 
   _addIngredient = () => {
@@ -119,10 +122,10 @@ export default class EditRecipeScreen extends Component {
   _onSave = () => {
     if (!this._inputIsValid())
       return;
-    const { title, photos, ingredients, description } = this.state;
+    const { title, photo, ingredients, description } = this.state;
     const recipe = this.props.navigation.state.params.recipe;
     recipe.title = title;
-    recipe.photos = photos;
+    recipe.photo = photo;
     recipe.ingredients = ingredients;
     recipe.text = description;
     this.props.navigation.state.params.onSave(recipe);
@@ -148,42 +151,46 @@ export default class EditRecipeScreen extends Component {
     return (
       <ScrollView contentContainerStyle={styles.container}>
 
-        <LabeledEditText
-          label={translate("EDIT_RECIPE_SCREEN_labelTitle")}
-          value={this.state.title}
-          onChangeText={this._setTitle}/>
+        <EditPhotoView
+          photo={this.state.photo}
+          onAddPress={this._addPhoto}
+          onEditPress={this._addPhoto}
+          onRemovePress={this._removePhoto}/>
 
-        <PhotoList
-          photos={this.state.photos}
-          style={{ marginTop: 16 }}
-          onAddPress={this._addPhoto}/>
+        <View style={styles.mainContent}>
 
-        <View style={styles.ingredientsContainer}>
-          <FlatList
-            data={this.state.ingredients}
-            extraData={this.state.ingredients}
-            keyExtractor={this._keyExtractor}
-            renderItem={this._renderItem}/>
+          <LabeledEditText
+            label={translate("EDIT_RECIPE_SCREEN_labelTitle")}
+            value={this.state.title}
+            onChangeText={this._setTitle}/>
+
+          <View style={styles.ingredientsContainer}>
+            <FlatList
+              data={this.state.ingredients}
+              extraData={this.state.ingredients}
+              keyExtractor={this._keyExtractor}
+              renderItem={this._renderItem}/>
+            <CustomButton
+              text={translate("EDIT_RECIPE_SCREEN_labelAddIngredient")}
+              color={Colors.colorAccent}
+              textColor={Colors.colorOnAccent}
+              onPress={this._addIngredient}/>
+          </View>
+
+          <LabeledEditText
+            label={translate("EDIT_RECIPE_SCREEN_labelDescription")}
+            value={this.state.description}
+            multiline={true}
+            onChangeText={this._setDescription}/>
+
           <CustomButton
-            text={translate("EDIT_RECIPE_SCREEN_labelAddIngredient")}
+            text={translate("EDIT_RECIPE_SCREEN_buttonSave")}
             color={Colors.colorAccent}
             textColor={Colors.colorOnAccent}
-            onPress={this._addIngredient}/>
+            onPress={this._onSave}
+            style={{ marginTop: 16 }}/>
+
         </View>
-
-        <LabeledEditText
-          label={translate("EDIT_RECIPE_SCREEN_labelDescription")}
-          value={this.state.description}
-          multiline={true}
-          onChangeText={this._setDescription}/>
-
-        <CustomButton
-          text={translate("EDIT_RECIPE_SCREEN_buttonSave")}
-          color={Colors.colorAccent}
-          textColor={Colors.colorOnAccent}
-          onPress={this._onSave}
-          style={{ marginTop: 16 }}/>
-
       </ScrollView>
     );
   }
@@ -191,10 +198,14 @@ export default class EditRecipeScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingBottom: 16,
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "stretch",
+  },
+  mainContent: {
+    paddingStart: 16,
+    paddingEnd: 16
   },
   ingredientsContainer: {
     flexDirection: "column",
