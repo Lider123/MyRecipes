@@ -1,7 +1,24 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import {
+  createStackNavigator,
+  createSwitchNavigator,
+  createAppContainer
+} from "react-navigation";
 
-import {navigationConfig, navigationMap} from "./navigation";
+import {authNavigationConfig, authNavigationMap, appNavigationConfig, appNavigationMap} from "./navigation";
+import SplashScreen from "./screens/SplashScreen";
 
-const AppNavigator = createStackNavigator(navigationMap, navigationConfig);
+const AppStack = createStackNavigator(appNavigationMap, appNavigationConfig);
+const AuthStack = createStackNavigator(authNavigationMap, authNavigationConfig);
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      Splash: SplashScreen,
+      App: AppStack,
+      Auth: AuthStack,
+    },
+    {
+      initialRouteName: "Splash",
+    }
+  )
+);

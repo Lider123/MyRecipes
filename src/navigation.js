@@ -3,8 +3,10 @@ import RecipeScreen from "./screens/RecipeScreen";
 import EditRecipeScreen from "./screens/EditRecipeScreen";
 import Colors from "./config/Colors";
 import translate from "./utils/language.utils"
+import LogInScreen from "./screens/LogInScreen";
+import SignUpScreen from "./screens/SignUpScreen";
 
-export const navigationMap = {
+export const appNavigationMap = {
   RecipeList: {
     screen: RecipeListScreen,
     navigationOptions: {
@@ -19,7 +21,7 @@ export const navigationMap = {
   },
 };
 
-export const navigationConfig = {
+export const appNavigationConfig = {
   initialRouteName: "RecipeList",
   defaultNavigationOptions: {
     headerStyle: {
@@ -30,4 +32,20 @@ export const navigationConfig = {
       fontWeight: 'bold',
     },
   },
+};
+
+export const authNavigationMap = {
+  LogIn: {
+    screen: LogInScreen,
+  },
+  SignUp: {
+    screen: SignUpScreen,
+  },
+};
+
+export const authNavigationConfig = {
+  initialRouteName: "LogIn",
+  defaultNavigationOptions: {
+    header: null,
+  }
 };
