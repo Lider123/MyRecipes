@@ -1,4 +1,4 @@
-package com.myrecipes;
+package com.babaetskv.myrecipes;
 
 import android.app.Application;
 
