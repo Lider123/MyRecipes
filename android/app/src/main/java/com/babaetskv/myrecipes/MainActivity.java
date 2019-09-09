@@ -1,4 +1,4 @@
-package com.myrecipes;
+package com.babaetskv.myrecipes;
 
 import com.facebook.react.ReactActivity;
 
