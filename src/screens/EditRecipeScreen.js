@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 
-import LabeledEditText from "../components/LabeledEditText";
+import LabeledTextInput from "../components/LabeledTextInput";
 import Ingredient from "../models/Ingredient";
 import CustomButton from "../components/CustomButton";
 import IngredientEditor from "../components/IngredientEditor";
@@ -159,7 +159,7 @@ export default class EditRecipeScreen extends Component {
 
         <View style={styles.mainContent}>
 
-          <LabeledEditText
+          <LabeledTextInput
             label={translate("EDIT_RECIPE_SCREEN_labelTitle")}
             value={this.state.title}
             onChangeText={this._setTitle}/>
@@ -177,7 +177,7 @@ export default class EditRecipeScreen extends Component {
               onPress={this._addIngredient}/>
           </View>
 
-          <LabeledEditText
+          <LabeledTextInput
             label={translate("EDIT_RECIPE_SCREEN_labelDescription")}
             value={this.state.description}
             multiline={true}

@@ -2,43 +2,37 @@ import React from "react"
 import {
   StyleSheet,
   Text,
-  TextInput,
   View
 } from "react-native"
 import PropTypes from "prop-types"
+import CustomTextInput from "./CustomTextInput";
 
-LabeledEditText.propTypes = {
+LabeledTextInput.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string,
   multiline: PropTypes.bool,
   onChangeText: PropTypes.func,
 };
 
-LabeledEditText.defaultProps = {
+LabeledTextInput.defaultProps = {
   value: "",
   multiline: false,
   onChangeText: () => {},
 };
 
-export default function LabeledEditText({ label, value, multiline, onChangeText }) {
+export default function LabeledTextInput({ label, value, multiline, onChangeText }) {
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
-      <View style={styles.inputBackground}>
-        <TextInput
-          value={value}
-          multiline={multiline}
-          onChangeText={onChangeText} />
-      </View>
+      <CustomTextInput
+        value={value}
+        multiline={multiline}
+        onChangeText={onChangeText}/>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  inputBackground: {
-    backgroundColor: "#EEE",
-    borderRadius: 4,
-  },
   label: {
     fontWeight: "bold",
     fontSize: 16,

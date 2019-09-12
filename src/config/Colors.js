@@ -5,4 +5,6 @@ export default {
   colorOnAccent: "#000",
   colorBackground: "#ECECEC",
   colorSurface: "#FFF",
+  colorError: "#F00",
+  colorOnError: "#FFF",
 };

@@ -1,46 +1,43 @@
 import React from "react";
 import {
-  ColorPropType,
   StyleSheet,
   Text,
   TouchableOpacity,
   ViewPropTypes,
 } from "react-native";
 import PropTypes from "prop-types";
+import Colors from "../config/Colors";
 
-CustomButton.propTypes = {
+CustomTextLink.propTypes = {
   text: PropTypes.string.isRequired,
-  color: ColorPropType,
-  textColor: ColorPropType,
   onPress: PropTypes.func,
   style: ViewPropTypes.style,
 };
 
-CustomButton.defaultProps = {
-  color: "#444",
-  textColor: "#FFF",
+CustomTextLink.defaultProps = {
   onPress: () => {},
   style: {},
 };
 
-export default function CustomButton({ text, color, textColor, onPress, style }) {
+export default function CustomTextLink({ text, onPress, style }) {
   return (
     <TouchableOpacity
-      style={[styles.container, style, { backgroundColor: color }]}
+      style={[styles.container, style]}
       onPress={onPress}>
-      <Text style={[styles.text, { color: textColor }]}>{text}</Text>
+      <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 4,
+    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    padding: 8,
-    fontSize: 14,
-    fontWeight: "bold",
-  }
+    color: Colors.colorAccent,
+    textDecorationLine: 'underline',
+    textAlign: "center",
+  },
 });
