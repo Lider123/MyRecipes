@@ -6,7 +6,7 @@ import translate from "./utils/language.utils"
 import LogInScreen from "./screens/LogInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 
-export const appNavigationMap = {
+export const homeNavigationMap = {
   RecipeList: {
     screen: RecipeListScreen,
     navigationOptions: {
@@ -21,7 +21,7 @@ export const appNavigationMap = {
   },
 };
 
-export const appNavigationConfig = {
+export const homeNavigationConfig = {
   initialRouteName: "RecipeList",
   defaultNavigationOptions: {
     headerStyle: {

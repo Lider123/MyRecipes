@@ -1,4 +1,7 @@
 export default {
+  TAB_home: "Home",
+  TAB_profile: "Profile",
+  TAB_settings: "Settings",
   RECIPE_CARD_ingredients: "Ingredients",
   RECIPE_LIST_SCREEN_title: "Recipes",
   RECIPE_LIST_SCREEN_newRecipe: "New recipe",
