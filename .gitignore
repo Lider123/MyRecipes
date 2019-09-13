@@ -54,3 +54,7 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+# Firebase credentials
+google-services.json
+service-account.json
