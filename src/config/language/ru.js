@@ -45,4 +45,10 @@ export default {
   SIGNUP_SCREEN_passwordConfirmIsEmpty: "Подтвердите пароль",
   SIGNUP_SCREEN_passwordsAreNotEqual: "Пароли не совпадают",
   SIGNUP_SCREEN_someFieldsAreEmpty: "Некоторые поля не заполнены",
+  SETTINGS_SCREEN_title: "Настройки",
+  SETTINGS_SCREEN_logOut: "Выход",
+  SETTINGS_SCREEN_logOutConfirmMessage: "Вы действительно хотите выйти?",
+  SETTINGS_SCREEN_logOutError: "Не удалось выйти из аккаунта",
+  no: "нет",
+  yes: "да",
 }

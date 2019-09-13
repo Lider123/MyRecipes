@@ -45,4 +45,10 @@ export default {
   SIGNUP_SCREEN_passwordConfirmIsEmpty: "Confirm password",
   SIGNUP_SCREEN_passwordsAreNotEqual: "Passwords are not equal",
   SIGNUP_SCREEN_someFieldsAreEmpty: "Some fields are empty",
+  SETTINGS_SCREEN_title: "Settings",
+  SETTINGS_SCREEN_logOut: "Log Out",
+  SETTINGS_SCREEN_logOutConfirmMessage: "Are you sure you want to log out?",
+  SETTINGS_SCREEN_logOutError: "There was an error while logging out",
+  no: "no",
+  yes: "yes",
 }

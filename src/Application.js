@@ -12,17 +12,15 @@ import {
   authNavigationConfig,
   authNavigationMap,
   homeNavigationConfig,
-  homeNavigationMap
+  homeNavigationMap, settingsNavigationConfig, settingsNavigationMap
 } from "./navigation";
 import SplashScreen from "./screens/SplashScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Colors from "./config/Colors";
 import translate from "./utils/language.utils";
-import SettingsScreen from "./screens/SettingsScreen";
-
-// TODO: use translations
 
 const HomeStack = createStackNavigator(homeNavigationMap, homeNavigationConfig);
+const SettingsStack = createStackNavigator(settingsNavigationMap, settingsNavigationConfig);
 const AuthStack = createStackNavigator(authNavigationMap, authNavigationConfig);
 
 const createLabel = (text, tintColor) => <Text style={{ textAlign: "center", color: tintColor, fontSize: 14, paddingBottom: 4 }}>{text}</Text>;
@@ -44,7 +42,7 @@ const AppTabs = createBottomTabNavigator({
     },
   },
   Settings: {
-    screen: SettingsScreen,
+    screen: SettingsStack,
     navigationOptions: {
       tabBarLabel: ({ focused, tintColor }) => createLabel(translate("TAB_settings"), tintColor),
       tabBarIcon: ({ focused, tintColor }) => createIcon("settings", tintColor),
