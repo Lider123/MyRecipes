@@ -58,3 +58,4 @@ buck-out/
 # Firebase credentials
 google-services.json
 service-account.json
+GoogleService-Info.plist
