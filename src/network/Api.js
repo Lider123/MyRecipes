@@ -3,6 +3,7 @@ import firebase from "react-native-firebase";
 
 export default class Api {
   static BASE_API = "https://firestore.googleapis.com/v1/projects/myrecipes-39edd/databases/(default)/documents";
+  static QUERY_API = "https://firestore.googleapis.com/v1/projects/myrecipes-39edd/databases/(default)/documents:runQuery";
 
   static getRecipes() {
     return firebase.auth().currentUser.getIdToken(true)
@@ -11,6 +12,38 @@ export default class Api {
         headers: {
           'Authorization': `Bearer ${idToken}`,
         },
+      }))
+      .then((response) => response.json());
+  }
+
+  static getRecipesByAuthor(author) {
+    const body = {
+      structuredQuery: {
+        from: [
+          { collectionId: "recipes" },
+        ],
+        where: {
+          fieldFilter : {
+            field: { fieldPath: "author" },
+            op: "EQUAL",
+            value: { stringValue: author }
+          }
+        },
+        orderBy: [
+          {
+            field: { fieldPath: "title" },
+            direction: "ASCENDING",
+          },
+        ],
+      }
+    };
+    return firebase.auth().currentUser.getIdToken(true)
+      .then((idToken) => fetch(Api.QUERY_API, {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${idToken}`,
+        },
+        body: JSON.stringify(body),
       }))
       .then((response) => response.json());
   }

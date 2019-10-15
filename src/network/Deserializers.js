@@ -6,7 +6,7 @@ export const deserializeRecipes = function(json) {
   if (!json.documents)
     return recipes;
   for (let i = 0; i < json.documents.length; i++) {
-    const recipe = deserializeRecipe(json.documents[i]);
+    const recipe = deserializeRecipe(json.documents[i].document || json.documents[i]);
     recipes.push(recipe)
   }
   return recipes;
@@ -15,6 +15,7 @@ export const deserializeRecipes = function(json) {
 export const deserializeRecipe = function(json) {
   const recipe = new Recipe();
   recipe.id = getName(json.name);
+  recipe.author = json.fields.author.stringValue;
   recipe.title = json.fields.title.stringValue;
   recipe.photo = json.fields.photo.stringValue;
   recipe.text = json.fields.text.stringValue;

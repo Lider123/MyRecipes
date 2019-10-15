@@ -29,6 +29,9 @@ export const serializeRecipe = function(recipe) {
     name: "projects/myrecipes-39edd/databases/(default)/documents/recipes/" + recipe.id,
     fields: {
       ingredients: serializeIngredients(recipe.ingredients),
+      author: {
+        stringValue: recipe.author,
+      },
       title: {
         stringValue: recipe.title,
       },
