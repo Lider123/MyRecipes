@@ -6,6 +6,7 @@ import {
   ToastAndroid,
   View,
 } from "react-native";
+import firebase from "react-native-firebase";
 
 import LabeledTextInput from "../components/LabeledTextInput";
 import Ingredient from "../models/Ingredient";
@@ -128,6 +129,7 @@ export default class EditRecipeScreen extends Component {
     recipe.photo = photo;
     recipe.ingredients = ingredients;
     recipe.text = description;
+    recipe.author = firebase.auth().currentUser.email;
     this.props.navigation.state.params.onSave(recipe);
     this.props.navigation.goBack();
     Api.createOrUpdateRecipe(recipe)

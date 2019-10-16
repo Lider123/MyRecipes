@@ -4,7 +4,8 @@ import {
   FlatList,
   StyleSheet,
   View
-} from "react-native"
+} from "react-native";
+import firebase from "react-native-firebase";
 
 import RecipeCard from "../components/RecipeCard";
 import Api from "../network/Api";
@@ -37,9 +38,10 @@ export default class RecipeListScreen extends Component {
     this.props.navigation.setParams({
       addNewRecipe: this._addNewRecipe,
     });
-    Api.getRecipes()
+    const author = firebase.auth().currentUser.email;
+    Api.getRecipesByAuthor(author)
       .then((responseJson) => {
-        const recipes = Parsers.deserializeRecipes(responseJson);
+        const recipes = Parsers.deserializeRecipes({ documents: responseJson });
         this.setState({
           recipes: recipes,
           isLoading: false,
