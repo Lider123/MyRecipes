@@ -11,8 +11,12 @@ import Icon from "react-native-vector-icons/MaterialIcons"
 import {
   authNavigationConfig,
   authNavigationMap,
+  feedNavigationConfig,
+  feedNavigationMap,
   homeNavigationConfig,
-  homeNavigationMap, settingsNavigationConfig, settingsNavigationMap
+  homeNavigationMap,
+  settingsNavigationConfig,
+  settingsNavigationMap
 } from "./navigation";
 import SplashScreen from "./screens/SplashScreen";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -20,6 +24,7 @@ import Colors from "./config/Colors";
 import translate from "./utils/language.utils";
 
 const HomeStack = createStackNavigator(homeNavigationMap, homeNavigationConfig);
+const FeedStack = createStackNavigator(feedNavigationMap, feedNavigationConfig);
 const SettingsStack = createStackNavigator(settingsNavigationMap, settingsNavigationConfig);
 const AuthStack = createStackNavigator(authNavigationMap, authNavigationConfig);
 
@@ -32,6 +37,13 @@ const AppTabs = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: ({ focused, tintColor }) => createLabel(translate("TAB_home"), tintColor),
       tabBarIcon: ({ focused, tintColor }) => createIcon("home", tintColor),
+    },
+  },
+  Feed: {
+    screen: FeedStack,
+    navigationOptions: {
+      tabBarLabel: ({ focused, tintColor }) => createLabel(translate("TAB_feed"), tintColor),
+      tabBarIcon: ({ focused, tintColor }) => createIcon("store", tintColor),
     },
   },
   Profile: {

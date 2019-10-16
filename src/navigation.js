@@ -1,4 +1,4 @@
-import RecipeListScreen from "./screens/RecipeListScreen";
+import HomeScreen from "./screens/HomeScreen";
 import RecipeScreen from "./screens/RecipeScreen";
 import EditRecipeScreen from "./screens/EditRecipeScreen";
 import Colors from "./config/Colors";
@@ -6,12 +6,13 @@ import translate from "./utils/language.utils"
 import LogInScreen from "./screens/LogInScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import SettingsScreen from "./screens/SettingsScreen";
+import FeedScreen from "./screens/FeedScreen";
 
 export const homeNavigationMap = {
-  RecipeList: {
-    screen: RecipeListScreen,
+  Home: {
+    screen: HomeScreen,
     navigationOptions: {
-      title: translate("RECIPE_LIST_SCREEN_title"),
+      title: translate("HOME_SCREEN_title"),
     },
   },
   Recipe: {
@@ -23,7 +24,32 @@ export const homeNavigationMap = {
 };
 
 export const homeNavigationConfig = {
-  initialRouteName: "RecipeList",
+  initialRouteName: "Home",
+  defaultNavigationOptions: {
+    headerStyle: {
+      backgroundColor: Colors.colorPrimary,
+    },
+    headerTintColor: Colors.colorOnPrimary,
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  },
+};
+
+export const feedNavigationMap = {
+  Feed: {
+    screen: FeedScreen,
+    navigationOptions: {
+      title: translate("FEED_SCREEN_title"),
+    },
+  },
+  Recipe: {
+    screen: RecipeScreen,
+  },
+};
+
+export const feedNavigationConfig = {
+  initialRouteName: "Feed",
   defaultNavigationOptions: {
     headerStyle: {
       backgroundColor: Colors.colorPrimary,

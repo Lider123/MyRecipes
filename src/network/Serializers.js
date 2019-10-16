@@ -40,7 +40,10 @@ export const serializeRecipe = function(recipe) {
       },
       text: {
         stringValue: recipe.text,
-      }
+      },
+      updatedAt: {
+        integerValue: recipe.updatedAt,
+      },
     },
   };
 };

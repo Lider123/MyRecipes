@@ -4,5 +4,6 @@ export default function Recipe() {
   this.title = "";
   this.ingredients = [];
   this.photo = "";
-  this.text = ""
+  this.text = "";
+  this.updatedAt = 0;
 }

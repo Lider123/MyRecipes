@@ -15,7 +15,7 @@ import Colors from "../config/Colors";
 import translate from "../utils/language.utils";
 import HeaderIcon from '../components/HeaderIcon';
 
-export default class RecipeListScreen extends Component {
+export default class HomeScreen extends Component {
   state = {
     recipes: [],
     isLoading: false,
@@ -66,7 +66,7 @@ export default class RecipeListScreen extends Component {
 
   _addNewRecipe = () => {
     this.props.navigation.navigate("EditRecipe", {
-      title: translate("RECIPE_LIST_SCREEN_newRecipe"),
+      title: translate("HOME_SCREEN_newRecipe"),
       recipe: new Recipe(),
       onSave: this._handleCreateRecipe
     });
@@ -74,7 +74,16 @@ export default class RecipeListScreen extends Component {
 
   _handleCreateRecipe = recipe => {
     const {recipes} = this.state;
-    recipes.push(recipe);
+    let inserted = false;
+    for (let i = 0, len = recipes.length; i < len; i++) {
+      if (recipe.title.toLowerCase() < recipes[i].title.toLowerCase()) {
+        recipes.splice(i, 0, recipe);
+        inserted = true;
+        break;
+      }
+    }
+    if (!inserted)
+      recipes.push(recipe);
     this.setState({ recipes: [...recipes] });
   };
 
