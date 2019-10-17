@@ -8,6 +8,7 @@ import {
   ViewPropTypes,
 } from "react-native";
 import PropTypes from "prop-types";
+import Icon from "react-native-vector-icons/MaterialIcons"
 
 import Recipe from "../models/Recipe";
 import Colors from "../config/Colors";
@@ -16,23 +17,31 @@ RecipeCard.propTypes = {
   recipe: PropTypes.instanceOf(Recipe).isRequired,
   style: ViewPropTypes.style,
   onPress: PropTypes.func,
+  isFavourite: PropTypes.bool,
 };
 
 RecipeCard.defaultProps = {
   style: {},
   onPress: () => {},
+  isFavourite: false,
 };
 
-export default function RecipeCard({recipe, style, onPress}) {
+export default function RecipeCard({recipe, style, onPress, isFavourite}) {
   const ingredients = recipe.ingredients.map(i => i.name).join(", ");
+  const src = recipe.photo !== "" ? { uri: "data:image/jpeg;base64," + recipe.photo } : require("../../img/placeholder.png");
   return (
     <TouchableOpacity
       style={[styles.container, style]}
       onPress={onPress}>
-      { recipe.photo !== "" &&
-        <Image
-          style={styles.photo}
-          source={{ uri: "data:image/jpeg;base64," + recipe.photo }}/>
+      <Image
+        style={styles.photo}
+        source={src}/>
+      { isFavourite &&
+      <Icon
+        name="favorite"
+        color={"#F44"}
+        style={styles.favouriteIcon}
+        size={20}/>
       }
       <View style={styles.info_container}>
         <Text style={styles.title}>{recipe.title}</Text>
@@ -81,5 +90,10 @@ const styles = StyleSheet.create({
     padding: 8,
     fontSize: 14,
     opacity: .54,
+  },
+  favouriteIcon: {
+    position: 'absolute',
+    top: 5,
+    left: 5,
   },
 });
