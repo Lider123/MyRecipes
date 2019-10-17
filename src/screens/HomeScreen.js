@@ -14,11 +14,13 @@ import Recipe from "../models/Recipe";
 import Colors from "../config/Colors";
 import translate from "../utils/language.utils";
 import HeaderIcon from '../components/HeaderIcon';
+import User from "../models/User";
 
 export default class HomeScreen extends Component {
   state = {
     recipes: [],
     isLoading: false,
+    userInfo: User(),
   };
 
   static navigationOptions = ({ navigation }) => {
@@ -39,7 +41,12 @@ export default class HomeScreen extends Component {
       addNewRecipe: this._addNewRecipe,
     });
     const author = firebase.auth().currentUser.email;
-    Api.getRecipesByAuthor(author)
+    Api.getUser(author)
+      .then((responseJson) => {
+        const userInfo = Parsers.deserializeUser(responseJson);
+        this.setState({userInfo});
+        return Api.getRecipesByAuthor(author);
+      })
       .then((responseJson) => {
         const recipes = Parsers.deserializeRecipes({ documents: responseJson });
         this.setState({
@@ -103,10 +110,12 @@ export default class HomeScreen extends Component {
   };
 
   _renderItem = ({ item, index }) => {
+    const favourites = this.state.userInfo.favourites.map(f => f.trim());
     return RecipeCard({
       recipe: item,
       onPress: () => this._onItemPress(item),
-      style: index === 0 ? { marginTop: 16 } : {},
+      isFavourite: favourites.includes(item.id),
+      style: index === 0 ? { marginTop: 16} : {},
     });
   };
 

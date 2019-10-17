@@ -1,5 +1,6 @@
 import Recipe from "../models/Recipe";
 import Ingredient from "../models/Ingredient";
+import User from "../models/User";
 
 export const deserializeRecipes = function(json) {
   const recipes = [];
@@ -24,6 +25,13 @@ export const deserializeRecipe = function(json) {
   return recipe;
 };
 
+export const deserializeUser = function(json) {
+  const user = new User();
+  user.id = getName(json.name);
+  user.favourites = getStringArray(json.fields.favourites);
+  return user;
+};
+
 export const deserializeIngredients = function(json) {
   const ingredients = [];
   if (!json)
@@ -46,4 +54,13 @@ export const deserializeIngredient = function(json) {
 const getName = function(str) {
   const split = str.split('/');
   return split[split.length-1]
+};
+
+const getStringArray = function(json) {
+  try {
+    return json.arrayValue.values.map(obj => obj.stringValue);
+  }
+  catch(err) {
+    return [];
+  }
 };

@@ -73,10 +73,34 @@ export default class Api {
       .then((response) => response.json());
   }
 
+  static getUser(id) {
+    return firebase.auth().currentUser.getIdToken(true)
+      .then((idToken) => fetch(Api.BASE_API + "/users/" + id, {
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${idToken}`,
+        },
+      }))
+      .then((response) => response.json());
+  }
+
   static createOrUpdateRecipe(recipe) {
     const data = Serializers.serializeRecipe(recipe);
     return firebase.auth().currentUser.getIdToken(true)
       .then((idToken) => fetch(Api.BASE_API + "/recipes/" + recipe.id, {
+        method: 'PATCH',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${idToken}`
+        }
+      }));
+  }
+
+  static createOrUpdateUser(user) {
+    const data = Serializers.serializeUser(user);
+    return firebase.auth().currentUser.getIdToken(true)
+      .then((idToken) => fetch(Api.BASE_API + "/users/" + user.id, {
         method: 'PATCH',
         body: JSON.stringify(data),
         headers: {
