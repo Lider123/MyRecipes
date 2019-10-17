@@ -130,6 +130,7 @@ export default class EditRecipeScreen extends Component {
     recipe.ingredients = ingredients;
     recipe.text = description;
     recipe.author = firebase.auth().currentUser.email;
+    recipe.updatedAt = Date.now();
     this.props.navigation.state.params.onSave(recipe);
     this.props.navigation.goBack();
     Api.createOrUpdateRecipe(recipe)

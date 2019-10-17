@@ -24,12 +24,16 @@ export default class RecipeScreen extends Component {
       title: `${navigation.state.params.title}`,
       headerRight: (
         <View style={{ flexDirection: "row" }}>
+          { navigation.state.params.onUpdateRecipe &&
           <HeaderIcon
             name="edit"
             onPress={ navigation.getParam("editRecipe") }/>
+          }
+          {navigation.state.params.onDeleteRecipe &&
           <HeaderIcon
             name="delete"
-            onPress={ navigation.getParam("deleteRecipe") }/>
+            onPress={navigation.getParam("deleteRecipe")}/>
+          }
         </View>
       ),
     };

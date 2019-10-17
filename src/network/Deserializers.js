@@ -19,6 +19,7 @@ export const deserializeRecipe = function(json) {
   recipe.title = json.fields.title.stringValue;
   recipe.photo = json.fields.photo.stringValue;
   recipe.text = json.fields.text.stringValue;
+  recipe.updatedAt = json.fields.updatedAt.integerValue;
   recipe.ingredients = deserializeIngredients(json.fields.ingredients.arrayValue.values);
   return recipe;
 };

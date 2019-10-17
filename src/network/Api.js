@@ -16,6 +16,31 @@ export default class Api {
       .then((response) => response.json());
   }
 
+  static getFeed() {
+    const body = {
+      structuredQuery: {
+        from: [
+          { collectionId: "recipes" },
+        ],
+        orderBy: [
+          {
+            field: { fieldPath: "updatedAt" },
+            direction: "DESCENDING",
+          },
+        ],
+      }
+    };
+    return firebase.auth().currentUser.getIdToken(true)
+      .then((idToken) => fetch(Api.QUERY_API, {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${idToken}`,
+        },
+        body: JSON.stringify(body),
+      }))
+      .then((response) => response.json());
+  }
+
   static getRecipesByAuthor(author) {
     const body = {
       structuredQuery: {
