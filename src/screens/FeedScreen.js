@@ -54,7 +54,7 @@ export default class FeedScreen extends Component {
     });
   };
 
-  onRefresh() {
+  _onRefresh() {
     this.loadFeed()
   }
 
@@ -66,9 +66,9 @@ export default class FeedScreen extends Component {
           extraData={this.state.recipes}
           renderItem={this._renderItem}
           keyExtractor={this._keyExtractor}
-          onRefresh={() => this.onRefresh()}
+          onRefresh={this._onRefresh}
           refreshing={this.state.isLoading}
-          style={styles.list}/>
+          contentContainerStyle={styles.list}/>
       </View>
     );
   }
