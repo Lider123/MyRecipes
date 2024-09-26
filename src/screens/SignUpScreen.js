@@ -11,6 +11,8 @@ import CustomButton from "../components/CustomButton";
 import Colors from "../config/Colors";
 import translate from "../utils/language.utils";
 import CustomInputField from "../components/CustomInputField";
+import User from "../models/User";
+import Api from "../network/Api";
 
 export default class SignUpScreen extends Component {
   state = {
@@ -38,6 +40,10 @@ export default class SignUpScreen extends Component {
       })
       .then(() => {
         this.setState({ progressVisible: false });
+        const user = new User();
+        return Api.createOrUpdateUser(user);
+      })
+      .then(() => {
         this.props.navigation.navigate("App")
       })
       .catch(error => this.setState({

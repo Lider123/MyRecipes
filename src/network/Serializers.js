@@ -24,6 +24,24 @@ export const serializeIngredients = function(ingredients) {
   };
 };
 
+export const serializeUser = function(user) {
+  const favourites = user.favourites.map(serializeString);
+  return {
+    name: "projects/myrecipes-39edd/databases/(default)/documents/users/" + user.id,
+    fields: {
+      favourites: {
+        arrayValue: {
+          values: favourites,
+        },
+      },
+    },
+  };
+};
+
+function serializeString(s) {
+  return { stringValue: s }
+}
+
 export const serializeRecipe = function(recipe) {
   return {
     name: "projects/myrecipes-39edd/databases/(default)/documents/recipes/" + recipe.id,
